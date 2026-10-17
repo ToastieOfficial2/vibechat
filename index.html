@@ -1,1 +1,323 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeChat | Connect with everyone</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      color: #f5f5fa;
+      background:
+        radial-gradient(ellipse at 15% 15%, #29245a 0, transparent 45%),
+        radial-gradient(ellipse at 85% 85%, #172d4c 0, transparent 45%),
+        #111218;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .layout {
+      width: 100%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: 1fr 410px;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .brand { padding: 20px; }
+
+    .logo {
+      display: inline-grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: #5865f2;
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 58px);
+      letter-spacing: -2px;
+      line-height: 1.08;
+      margin: 0 0 18px;
+    }
+
+    .brand p {
+      color: #a5a8ba;
+      line-height: 1.8;
+      max-width: 390px;
+    }
+
+    .card {
+      background: rgba(28, 29, 39, .94);
+      border: 1px solid #343544;
+      border-radius: 22px;
+      padding: 34px;
+      box-shadow: 0 24px 80px #0005;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 5px;
+      background: #14151d;
+      border-radius: 12px;
+      margin-bottom: 28px;
+    }
+
+    .tab {
+      border: 0;
+      padding: 12px;
+      border-radius: 9px;
+      background: transparent;
+      color: #a5a8ba;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #5865f2;
+      color: white;
+    }
+
+    h2 { margin: 0 0 8px; font-size: 27px; }
+
+    .subtitle {
+      color: #a5a8ba;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0 0 25px;
+    }
+
+    .field { margin-bottom: 17px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      color: white;
+      background: #13141c;
+      border: 1px solid #383948;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus { border-color: #818bff; }
+
+    input::placeholder { color: #777b8e; }
+
+    .forgot {
+      display: block;
+      text-align: right;
+      margin-top: -7px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #9ca6ff;
+      text-decoration: none;
+    }
+
+    .submit {
+      width: 100%;
+      border: 0;
+      padding: 15px;
+      border-radius: 10px;
+      background: #5865f2;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .submit:hover {
+      background: #4752c4;
+      transform: translateY(-1px);
+    }
+
+    .message {
+      display: none;
+      padding: 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 15px;
+      background: #252c41;
+      color: #cbd1ff;
+    }
+
+    .terms {
+      font-size: 11px;
+      line-height: 1.7;
+      color: #85899b;
+      margin-top: 22px;
+    }
+
+    .terms a { color: #a4adff; }
+
+    .footer {
+      text-align: center;
+      color: #74788b;
+      font-size: 11px;
+      margin-top: 25px;
+    }
+
+    @media (max-width: 760px) {
+      .layout {
+        grid-template-columns: 1fr;
+        max-width: 440px;
+        gap: 25px;
+      }
+      .brand { padding: 0 5px; }
+      .brand .logo {
+        width: 45px;
+        height: 45px;
+        font-size: 23px;
+        margin-bottom: 15px;
+      }
+      .brand h1 { font-size: 36px; }
+      .brand p { margin-bottom: 0; }
+      .card { padding: 25px 21px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="layout">
+    <section class="brand">
+      <div class="logo">✦</div>
+      <h1>Your people.<br>Your space.</h1>
+      <p>
+        Welcome to VibeChat. Find your people, join communities,
+        share your moments, and turn everyday conversations into
+        something special.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="tabs">
+        <button class="tab active" id="loginTab"
+          type="button" onclick="setMode('login')">Log In</button>
+        <button class="tab" id="signupTab"
+          type="button" onclick="setMode('signup')">Sign Up</button>
+      </div>
+
+      <h2 id="heading">Welcome back!</h2>
+      <p class="subtitle" id="subtitle">
+        Enter your details to continue to VibeChat.
+      </p>
+
+      <form id="authForm">
+        <div class="field" id="usernameField" hidden>
+          <label for="username">USERNAME</label>
+          <input id="username" name="username"
+            placeholder="Choose a username"
+            minlength="3" maxlength="24" autocomplete="username">
+        </div>
+
+        <div class="field">
+          <label for="email">EMAIL ADDRESS</label>
+          <input id="email" name="email" type="email"
+            placeholder="you@example.com"
+            autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label for="password">PASSWORD</label>
+          <input id="password" name="password" type="password"
+            placeholder="At least 8 characters"
+            minlength="8" autocomplete="current-password" required>
+        </div>
+
+        <a href="#" class="forgot" id="forgotLink"
+          onclick="showInfo(event)">Forgot your password?</a>
+
+        <button class="submit" id="submitButton" type="submit">
+          Log In
+        </button>
+
+        <div class="message" id="message" role="status"></div>
+      </form>
+
+      <p class="terms" id="terms">
+        By continuing, you agree to our
+        <a href="#" onclick="showTerms(event)">Terms of Service</a>
+        and <a href="#" onclick="showTerms(event)">Privacy Policy</a>.
+      </p>
+
+      <div class="footer">Made for your community. © 2026 VibeChat</div>
+    </section>
+  </main>
+
+  <script>
+    let mode = "login";
+
+    function setMode(nextMode) {
+      mode = nextMode;
+
+      const signup = mode === "signup";
+      document.getElementById("loginTab").classList.toggle("active", !signup);
+      document.getElementById("signupTab").classList.toggle("active", signup);
+      document.getElementById("heading").textContent =
+        signup ? "Create your account" : "Welcome back!";
+      document.getElementById("subtitle").textContent =
+        signup
+          ? "Join VibeChat and find your community."
+          : "Enter your details to continue to VibeChat.";
+      document.getElementById("usernameField").hidden = !signup;
+      document.getElementById("username").required = signup;
+      document.getElementById("password").autocomplete =
+        signup ? "new-password" : "current-password";
+      document.getElementById("forgotLink").hidden = signup;
+      document.getElementById("submitButton").textContent =
+        signup ? "Create Account" : "Log In";
+
+      document.getElementById("message").style.display = "none";
+    }
+
+    document.getElementById("authForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const message = document.getElementById("message");
+      message.style.display = "block";
+
+      // Demo only: no account is created and no login occurs.
+      message.textContent = mode === "signup"
+        ? "Your sign-up page is ready! Connect an authentication service to create real accounts."
+        : "Your login page is ready! Connect an authentication service to sign in securely.";
+    });
+
+    function showInfo(event) {
+      event.preventDefault();
+      const message = document.getElementById("message");
+      message.textContent =
+        "Password recovery will be available once authentication is configured.";
+      message.style.display = "block";
+    }
+
+    function showTerms(event) {
+      event.preventDefault();
+      const message = document.getElementById("message");
+      message.textContent =
+        "Add your own Terms of Service and Privacy Policy before launching.";
+      message.style.display = "block";
+    }
+  </script>
+</body>
+</html>
+
