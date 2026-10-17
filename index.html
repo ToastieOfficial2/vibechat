@@ -8,48 +8,31 @@
   <style> 
     * { box-sizing: border-box; } 
  
-    :root {
-      --bg-dark: #111218;
-      --card-bg: #1c1d27;
-      --input-bg: #13141c;
-      --accent: #5865f2;
-      --accent-hover: #4752c4;
-      --text-main: #f5f5fa;
-      --text-muted: #a5a8ba;
-      --border-color: #343544;
-      --sidebar-bg: #12131a;
-      --chat-bg: #181922;
-      --owner-gold: #f1c40f;
-      --owner-bg: rgba(241, 196, 15, 0.15);
-      --mention-bg: rgba(46, 204, 113, 0.15);
-      --mention-border: #2ecc71;
-    }
-
     body { 
       margin: 0; 
       min-height: 100vh; 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      color: var(--text-main); 
+      padding: 0; 
+      font-family: Arial, sans-serif; 
+      color: #f5f5fa; 
       background: 
         radial-gradient(ellipse at 15% 15%, #29245a, transparent 45%), 
         radial-gradient(ellipse at 85% 85%, #172d4c, transparent 45%), 
-        var(--bg-dark); 
+        #111218; 
       overflow-x: hidden;
     } 
 
-    /* Helper Utilities */
     [hidden] { display: none !important; }
 
     /* =========================================================
-       1. AUTHENTICATION SECTION 
+       1. AUTHENTICATION PAGE STYLES
        ========================================================= */
-    #authContainer {
+    .auth-page {
       min-height: 100vh;
       display: grid;
       place-items: center;
       padding: 25px;
     }
-
+ 
     .layout { 
       width: 100%; 
       max-width: 960px; 
@@ -66,11 +49,11 @@
       height: 58px; 
       display: grid; 
       place-items: center; 
-      background: var(--accent); 
+      background: #5865f2; 
       border-radius: 17px; 
       font-size: 28px; 
       margin-bottom: 25px; 
-      box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4);
     } 
  
     h1 { 
@@ -81,15 +64,15 @@
     } 
  
     .brand p { 
-      color: var(--text-muted); 
+      color: #a5a8ba; 
       line-height: 1.8; 
     } 
  
     .card { 
       padding: 32px; 
-      border: 1px solid var(--border-color); 
+      border: 1px solid #343544; 
       border-radius: 22px; 
-      background: var(--card-bg); 
+      background: #1c1d27; 
       box-shadow: 0 25px 80px #0005; 
     } 
  
@@ -98,7 +81,7 @@
       grid-template-columns: 1fr 1fr; 
       padding: 5px; 
       gap: 5px; 
-      background: var(--input-bg); 
+      background: #13141c; 
       border-radius: 12px; 
       margin-bottom: 28px; 
     } 
@@ -109,22 +92,22 @@
       padding: 12px; 
       border: 0; 
       border-radius: 9px; 
-      color: var(--text-muted); 
+      color: #a5a8ba; 
       background: transparent; 
       cursor: pointer; 
       font-weight: bold;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     } 
  
     .tab.active { 
       color: white; 
-      background: var(--accent); 
+      background: #5865f2; 
     } 
  
     h2 { margin: 0 0 9px; font-size: 26px; } 
  
     .subtitle { 
-      color: var(--text-muted); 
+      color: #a5a8ba; 
       font-size: 14px; 
       line-height: 1.6; 
       margin: 0 0 25px; 
@@ -134,10 +117,11 @@
  
     label { 
       display: block; 
-      font-size: 12px; 
+      font-size: 11px; 
       font-weight: bold; 
+      color: #b9bbbe;
       margin-bottom: 8px; 
-      color: #c5c8de;
+      letter-spacing: 0.5px;
     } 
  
     input, select { 
@@ -146,15 +130,15 @@
       padding: 13px; 
       border: 1px solid #383948; 
       border-radius: 9px; 
-      background: var(--input-bg); 
+      background: #13141c; 
       color: white; 
       font-size: 14px; 
       outline: none; 
-      transition: border-color 0.2s;
+      transition: border-color 0.2s ease;
     } 
  
     input:focus, select:focus { 
-      border-color: #818bff; 
+      border-color: #5865f2; 
     } 
  
     input::placeholder { color: #777b8e; } 
@@ -174,7 +158,7 @@
       right: 12px;
       background: none;
       border: none;
-      color: var(--text-muted);
+      color: #a5a8ba;
       cursor: pointer;
       padding: 0;
       display: flex;
@@ -182,9 +166,7 @@
       justify-content: center;
     }
 
-    .toggle-password:hover {
-      color: #ffffff;
-    }
+    .toggle-password:hover { color: #ffffff; }
 
     .toggle-password svg {
       width: 20px;
@@ -192,20 +174,18 @@
       fill: currentColor;
     }
 
-    .checkbox-field {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--text-muted);
+    .forgot-btn {
+      background: none;
+      border: none;
+      color: #00aff4;
+      font-size: 12px;
       cursor: pointer;
+      padding: 0;
+      margin-top: 6px;
+      display: inline-block;
     }
 
-    .checkbox-field input {
-      width: auto;
-      cursor: pointer;
-    }
+    .forgot-btn:hover { text-decoration: underline; }
 
     .birthday { 
       display: grid; 
@@ -218,25 +198,25 @@
       padding: 15px; 
       border: 0; 
       border-radius: 10px; 
-      background: var(--accent); 
+      background: #5865f2; 
       color: white; 
       font-size: 15px; 
       font-weight: bold; 
       cursor: pointer; 
-      margin-top: 15px; 
-      transition: background 0.2s;
+      margin-top: 10px; 
+      transition: background 0.2s ease;
     } 
  
-    .submit:hover { background: var(--accent-hover); } 
+    .submit:hover { background: #4752c4; } 
  
     .message { 
       display: none; 
       padding: 12px; 
       margin-top: 15px; 
       border-radius: 9px; 
-      background: #3b1d28; 
-      border: 1px solid #e74c3c;
-      color: #f1a9a0; 
+      background: rgba(237, 66, 69, 0.15); 
+      border: 1px solid #ed4245;
+      color: #ff8f8f; 
       font-size: 13px; 
       line-height: 1.6; 
       overflow-wrap: anywhere; 
@@ -248,27 +228,7 @@
       font-size: 12px; 
       line-height: 1.8; 
     } 
- 
-    a { color: #a4adff; } 
- 
-    .terms-details { 
-      margin-top: 12px; 
-      border-top: 1px solid var(--border-color); 
-      padding-top: 12px; 
-    } 
- 
-    .terms-details summary { 
-      cursor: pointer; 
-      color: #a4adff; 
-      font-size: 12px; 
-    } 
- 
-    .terms-details p { 
-      color: #b4b6c5; 
-      font-size: 12px; 
-      line-height: 1.7; 
-    } 
- 
+
     .footer { 
       text-align: center; 
       color: #85899b; 
@@ -277,50 +237,48 @@
       margin-top: 23px; 
     } 
  
-    .creator { 
-      color: #c0c5ff; 
-      font-weight: bold; 
-    }
+    .creator { color: #5865f2; font-weight: bold; } 
 
     /* =========================================================
-       2. LOADING SCREEN SECTION
+       2. LOADING SCREEN STYLES (10 SECONDS SPLASH)
        ========================================================= */
-    #loadingScreen {
+    .loading-screen {
       position: fixed;
       inset: 0;
-      background: #0d0e12;
+      background: #0e0f15;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       z-index: 9999;
     }
 
-    .brand-loader-title {
+    .toastie-title {
       font-size: clamp(32px, 6vw, 54px);
       font-weight: 900;
-      letter-spacing: 3px;
-      background: linear-gradient(135deg, #a4adff, #5865f2, #ffffff);
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #7983f5, #5865f2, #00aff4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       text-transform: uppercase;
-      animation: pulseGlow 2s infinite ease-in-out;
+      animation: pulseGlow 2s infinite alternate;
     }
 
     @keyframes pulseGlow {
-      0%, 100% { filter: drop-shadow(0 0 15px rgba(88, 101, 242, 0.4)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 35px rgba(129, 139, 255, 0.8)); transform: scale(1.03); }
+      from { filter: drop-shadow(0 0 10px rgba(88, 101, 242, 0.4)); }
+      to { filter: drop-shadow(0 0 25px rgba(88, 101, 242, 0.9)); }
     }
 
     .loader-ring {
       width: 60px;
       height: 60px;
-      border: 4px solid rgba(88, 101, 242, 0.15);
-      border-top: 4px solid var(--accent);
+      border: 4px solid #1e202f;
+      border-top: 4px solid #5865f2;
+      border-right: 4px solid #00aff4;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     @keyframes spin {
@@ -329,142 +287,134 @@
     }
 
     .progress-bar-container {
-      width: 260px;
-      height: 6px;
-      background: #1c1d27;
+      width: 280px;
+      height: 8px;
+      background: #1e202f;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #2e3040;
+      margin-bottom: 15px;
+      border: 1px solid #2e3146;
     }
 
     .progress-bar-fill {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, #5865f2, #818bff);
+      background: linear-gradient(90deg, #5865f2, #00aff4);
       border-radius: 10px;
       transition: width 0.1s linear;
     }
 
-    .loader-subtitle {
-      margin-top: 15px;
-      color: var(--text-muted);
+    .loading-status {
+      color: #a5a8ba;
       font-size: 13px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     /* =========================================================
-       3. CHAT ROOM APP INTERFACE
+       3. CHAT ROOM STYLES (DISCORD UI)
        ========================================================= */
-    #chatApp {
-      display: flex;
+    .app-container {
+      display: grid;
+      grid-template-columns: 240px 1fr 240px;
       height: 100vh;
       width: 100vw;
-      background: var(--chat-bg);
-      overflow: hidden;
+      background: #313338;
     }
 
-    /* Channels Sidebar */
+    /* Left Sidebar */
     .sidebar {
-      width: 260px;
-      background: var(--sidebar-bg);
-      border-right: 1px solid #1f212d;
+      background: #2b2d31;
       display: flex;
       flex-direction: column;
-      flex-shrink: 0;
+      border-right: 1px solid #1f2023;
     }
 
     .server-header {
-      padding: 18px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      border-bottom: 1px solid #1f212d;
+      height: 50px;
+      padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      border-bottom: 1px solid #1f2023;
+      font-weight: bold;
+      color: #f2f3f5;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
 
-    .channel-list {
+    .channels-list {
       flex: 1;
-      padding: 15px 10px;
+      padding: 12px 8px;
       overflow-y: auto;
     }
 
     .channel-category {
       font-size: 11px;
       font-weight: bold;
-      color: #6a6d85;
-      text-transform: uppercase;
-      padding: 8px 10px 4px;
+      color: #949ba4;
+      padding: 6px 8px;
       letter-spacing: 0.5px;
     }
 
     .channel-item {
       display: flex;
       align-items: center;
-      padding: 9px 12px;
-      border-radius: 6px;
-      color: var(--text-muted);
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      color: #949ba4;
       cursor: pointer;
-      margin-bottom: 2px;
       font-size: 14px;
-      font-weight: 500;
-      transition: all 0.15s;
+      margin-bottom: 2px;
     }
 
-    .channel-item.active {
-      background: rgba(88, 101, 242, 0.2);
-      color: #ffffff;
+    .channel-item.active, .channel-item:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: #f2f3f5;
     }
 
-    .channel-item span {
-      margin-right: 8px;
-      font-size: 18px;
-      color: #6a6d85;
-    }
+    .channel-icon { font-size: 18px; color: #80848e; }
 
-    .user-profile-bar {
-      padding: 12px 14px;
-      background: #0d0e14;
+    .user-footer {
+      height: 56px;
+      background: #232428;
+      padding: 0 8px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      border-top: 1px solid #1f212d;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
     }
 
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: grid;
-      place-items: center;
-      font-weight: bold;
-      font-size: 15px;
-      color: white;
-      flex-shrink: 0;
-      text-transform: uppercase;
+    .user-footer:hover {
+      background: #2b2d31;
+    }
+
+    .avatar-wrapper {
       position: relative;
     }
 
-    .avatar.owner-avatar {
-      background: linear-gradient(135deg, #f1c40f, #e67e22);
-      box-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #5865f2;
+      display: grid;
+      place-items: center;
+      font-weight: bold;
+      color: white;
+      font-size: 15px;
+      flex-shrink: 0;
     }
 
-    .owner-badge {
-      background: var(--owner-gold);
-      color: #111;
-      font-size: 9px;
-      font-weight: 900;
-      padding: 2px 6px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: inline-block;
-      vertical-align: middle;
-      margin-left: 6px;
-      box-shadow: 0 2px 5px rgba(241, 196, 15, 0.3);
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      background: #23a55a;
+      border: 2px solid #232428;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
     }
 
     .user-info {
@@ -472,383 +422,287 @@
       overflow: hidden;
     }
 
-    .user-info .name {
+    .user-name {
       font-size: 13px;
       font-weight: bold;
-      color: white;
+      color: #f2f3f5;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       display: flex;
       align-items: center;
+      gap: 4px;
     }
 
-    .user-info .status {
+    .user-sub {
       font-size: 11px;
-      color: #57f287;
+      color: #949ba4;
     }
 
-    .logout-btn {
-      background: none;
-      border: none;
-      color: #e74c3c;
-      cursor: pointer;
-      font-size: 16px;
-      padding: 5px;
-      border-radius: 4px;
-    }
-
-    .logout-btn:hover {
-      background: rgba(231, 76, 60, 0.1);
-    }
-
-    /* Main Chat View */
-    .chat-main {
-      flex: 1;
+    /* Main Chat Window */
+    .chat-area {
       display: flex;
       flex-direction: column;
-      position: relative;
-      background: var(--chat-bg);
+      background: #313338;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .chat-header {
-      height: 56px;
-      padding: 0 20px;
-      border-bottom: 1px solid #1f212d;
+      height: 50px;
+      padding: 0 16px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid #1f2023;
       font-weight: bold;
-      font-size: 16px;
-      background: var(--chat-bg);
-      z-index: 10;
+      color: #f2f3f5;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
 
-    .chat-messages {
+    .chat-feed {
       flex: 1;
-      padding: 20px;
+      padding: 16px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
     .message-card {
       display: flex;
       gap: 14px;
       position: relative;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: background 0.15s;
-      animation: fadeIn 0.2s ease-out;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: background 0.15s ease;
     }
 
     .message-card:hover {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(0, 0, 0, 0.08);
     }
 
-    .message-card.is-mention {
-      background: var(--mention-bg);
-      border-left: 3px solid var(--mention-border);
+    /* Highlighted mention style */
+    .message-card.mentioned {
+      background: rgba(35, 165, 90, 0.15);
+      border-left: 3px solid #23a55a;
     }
 
-    .reply-reference {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
+    .msg-header {
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-
-    .reply-reference span {
-      font-weight: bold;
-      color: var(--text-main);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .message-content {
-      flex: 1;
-    }
-
-    .message-header {
-      display: flex;
-      align-items: baseline;
       gap: 8px;
       margin-bottom: 4px;
     }
 
-    .author-name {
+    .msg-author {
       font-weight: bold;
       font-size: 14px;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
+      color: #f2f3f5;
+      cursor: pointer;
     }
 
-    .timestamp {
+    .msg-author:hover { text-decoration: underline; }
+
+    .msg-time {
       font-size: 11px;
-      color: #6a6d85;
+      color: #949ba4;
     }
 
-    .message-text {
+    .owner-badge {
+      background: #fee75c;
+      color: #000;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 2px 5px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .msg-content {
+      color: #dbdee1;
       font-size: 14px;
-      color: #dcddde;
-      line-height: 1.5;
+      line-height: 1.4;
       word-break: break-word;
     }
 
-    .message-text .mention-tag {
-      background: rgba(88, 101, 242, 0.3);
-      color: #c9ceff;
+    .mention-text {
+      background: rgba(35, 165, 90, 0.3);
+      color: #72f2a2;
       padding: 1px 4px;
-      border-radius: 4px;
-      font-weight: 600;
+      border-radius: 3px;
+      font-weight: bold;
     }
 
-    .message-actions {
+    .media-attachment {
+      margin-top: 8px;
+      max-width: 320px;
+      max-height: 240px;
+      border-radius: 8px;
+      display: block;
+      border: 1px solid #2b2d31;
+    }
+
+    .reply-quote {
+      font-size: 12px;
+      color: #b5bac1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      padding-left: 8px;
+      border-left: 2px solid #4e5058;
+    }
+
+    .msg-actions {
       display: none;
       position: absolute;
-      right: 15px;
-      top: 10px;
-      background: #2b2d3d;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      overflow: hidden;
+      right: 10px;
+      top: -12px;
+      background: #313338;
+      border: 1px solid #2b2d31;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
-    .message-card:hover .message-actions {
+    .message-card:hover .msg-actions {
       display: flex;
     }
 
     .action-btn {
       background: none;
       border: none;
-      color: var(--text-muted);
-      padding: 6px 10px;
+      color: #b5bac1;
+      padding: 4px 8px;
       cursor: pointer;
       font-size: 12px;
-      transition: all 0.15s;
     }
 
     .action-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
       color: white;
+      background: rgba(255,255,255,0.1);
     }
 
-    .action-btn.delete-btn:hover {
-      background: #e74c3c;
-      color: white;
+    .action-btn.delete:hover {
+      color: #ed4245;
     }
 
-    .media-attachment {
-      margin-top: 8px;
-      max-width: 380px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-      background: #000;
+    /* Input Dock */
+    .input-dock {
+      padding: 0 16px 20px 16px;
+      background: #313338;
     }
 
-    .media-attachment img, 
-    .media-attachment video {
-      width: 100%;
-      max-height: 300px;
-      display: block;
-      object-fit: contain;
-    }
-
-    /* Reply Preview Area */
     .reply-preview-bar {
-      background: #1c1d29;
-      border-top: 1px solid var(--border-color);
-      padding: 8px 20px;
+      background: #2b2d31;
+      padding: 6px 12px;
+      border-radius: 8px 8px 0 0;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 13px;
-      color: var(--text-muted);
+      align-items: center;
+      font-size: 12px;
+      color: #b5bac1;
+      border: 1px solid #383a40;
+      border-bottom: none;
     }
 
-    .reply-preview-bar span {
-      color: var(--text-main);
-      font-weight: bold;
-    }
-
-    .cancel-reply-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .cancel-reply-btn:hover {
-      color: white;
-    }
-
-    /* Timeout Alert Banner */
-    .timeout-banner {
-      background: #381a1a;
-      border-top: 1px solid #e74c3c;
-      color: #f5b7b1;
-      padding: 10px 20px;
-      font-size: 13px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    /* Bottom Input Container */
-    .chat-input-area {
-      padding: 0 20px 20px 20px;
-      background: transparent;
-    }
-
-    .chat-input-box {
-      background: #232533;
-      border-radius: 12px;
-      padding: 8px 14px;
+    .input-wrapper {
+      background: #383a40;
+      border-radius: 8px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      border: 1px solid #2e3044;
+      padding: 0 12px;
+      gap: 12px;
     }
 
     .attach-btn {
-      width: 34px;
-      height: 34px;
+      background: #4e5058;
+      color: white;
+      border: none;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #34374c;
-      color: #b9bbbe;
-      border: 0;
-      font-size: 20px;
       display: grid;
       place-items: center;
+      font-size: 16px;
       cursor: pointer;
-      transition: all 0.2s;
       flex-shrink: 0;
     }
 
-    .attach-btn:hover {
-      background: var(--accent);
-      color: white;
-    }
+    .attach-btn:hover { background: #6d6f78; }
 
-    .chat-input-box input[type="text"] {
-      border: none;
+    .chat-input {
+      flex: 1;
       background: transparent;
-      padding: 8px 0;
-      font-size: 14px;
-    }
-
-    .chat-input-box input[type="text"]:focus {
-      border-color: transparent;
-    }
-
-    .send-btn {
-      background: var(--accent);
-      color: white;
       border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-      flex-shrink: 0;
+      color: white;
+      padding: 12px 0;
+      font-size: 14px;
+      outline: none;
     }
 
-    .send-btn:hover {
-      background: var(--accent-hover);
-    }
+    .chat-input::placeholder { color: #80848e; }
 
-    .send-btn:disabled, .attach-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* Right Sidebar - Online List */
+    /* Right Member List Sidebar */
     .members-sidebar {
-      width: 220px;
-      background: var(--sidebar-bg);
-      border-left: 1px solid #1f212d;
-      padding: 18px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      background: #2b2d31;
+      border-left: 1px solid #1f2023;
+      padding: 12px 8px;
       overflow-y: auto;
     }
 
-    .members-title {
+    .member-category {
       font-size: 11px;
       font-weight: bold;
-      color: #6a6d85;
-      text-transform: uppercase;
+      color: #949ba4;
+      padding: 12px 8px 4px 8px;
       letter-spacing: 0.5px;
     }
 
     .member-item {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--text-muted);
-      padding: 4px;
-      border-radius: 6px;
+      gap: 10px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease;
     }
 
     .member-item:hover {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.07);
     }
 
-    .member-info-wrapper {
+    .member-info {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow: hidden;
+      flex-direction: column;
     }
 
     .member-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #949ba4;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .member-status {
+      font-size: 11px;
+      color: #80848e;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      display: flex;
-      align-items: center;
+      max-width: 120px;
     }
 
-    .member-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #34374c;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      font-weight: bold;
-      color: white;
-      flex-shrink: 0;
+    .member-item.owner .member-name {
+      color: #fee75c;
     }
 
-    .timeout-btn {
-      background: #3a2329;
-      border: 1px solid #721c24;
-      color: #f8d7da;
-      font-size: 10px;
-      padding: 3px 6px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .timeout-btn:hover {
-      background: #721c24;
-      color: white;
-    }
-
-    /* Modal for Timeout Options */
+    /* =========================================================
+       4. MODALS (RECOVERY, TIMEOUT, PROFILE CARD)
+       ========================================================= */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -857,69 +711,154 @@
       align-items: center;
       justify-content: center;
       z-index: 10000;
+      padding: 20px;
     }
 
-    .modal {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
+    .modal-box {
+      background: #313338;
+      border: 1px solid #383a40;
+      width: 100%;
+      max-width: 420px;
       border-radius: 12px;
       padding: 24px;
-      width: 320px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    .modal h3 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      font-size: 18px;
-    }
-
-    .modal-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 15px;
-    }
-
-    .modal-btn {
-      padding: 10px;
-      background: var(--input-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
+    .modal-title {
+      font-size: 20px;
       font-weight: bold;
-      text-align: left;
-      transition: background 0.2s;
-    }
-
-    .modal-btn:hover {
-      background: var(--accent);
-    }
-
-    .modal-btn.remove-time {
-      border-color: #e74c3c;
-      color: #e74c3c;
-    }
-
-    .modal-btn.remove-time:hover {
-      background: #e74c3c;
+      margin: 0 0 8px 0;
       color: white;
     }
 
-    .modal-close {
-      margin-top: 15px;
-      width: 100%;
-      padding: 8px;
+    .modal-sub {
+      font-size: 13px;
+      color: #b5bac1;
+      margin-bottom: 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-secondary {
       background: transparent;
       border: none;
-      color: var(--text-muted);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
       cursor: pointer;
     }
 
-    /* Responsive Design */
-    @media (max-width: 850px) {
-      .members-sidebar { display: none; }
+    .btn-secondary:hover { text-decoration: underline; }
+
+    .btn-danger {
+      background: #ed4245;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-danger:hover { background: #c83b3e; }
+
+    /* Discord-Style User Profile Card */
+    .profile-card {
+      background: #232428;
+      width: 100%;
+      max-width: 340px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+      border: 1px solid #383a40;
+      position: relative;
+    }
+
+    .profile-banner {
+      height: 90px;
+      background: linear-gradient(135deg, #5865f2, #29245a);
+    }
+
+    .profile-avatar-container {
+      position: absolute;
+      top: 50px;
+      left: 16px;
+      border: 6px solid #232428;
+      border-radius: 50%;
+      background: #232428;
+    }
+
+    .profile-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #5865f2;
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .profile-body {
+      padding: 50px 16px 16px 16px;
+      background: #111214;
+      margin: 12px;
+      border-radius: 12px;
+    }
+
+    .profile-display-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #f2f3f5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .profile-username {
+      font-size: 13px;
+      color: #b5bac1;
+      margin-bottom: 12px;
+    }
+
+    .profile-divider {
+      height: 1px;
+      background: #2b2d31;
+      margin: 12px 0;
+    }
+
+    .profile-section-title {
+      font-size: 11px;
+      font-weight: bold;
+      color: #b5bac1;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .profile-bio {
+      font-size: 13px;
+      color: #dbdee1;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+
+    .edit-bio-textarea {
+      width: 100%;
+      height: 60px;
+      background: #1e1f22;
+      border: 1px solid #383a40;
+      border-radius: 6px;
+      color: white;
+      padding: 8px;
+      font-size: 12px;
+      resize: none;
+      outline: none;
     }
 
     @media (max-width: 760px) { 
@@ -928,17 +867,10 @@
         max-width: 430px; 
         gap: 22px; 
       } 
- 
-      .brand { padding: 0 5px; } 
-      .logo { width: 46px; height: 46px; margin-bottom: 15px; } 
-      .brand h1 { font-size: 36px; } 
-      .brand p { font-size: 14px; margin-bottom: 0; } 
-      .card { padding: 25px 21px; } 
-
-      .sidebar { width: 70px; }
-      .channel-category, .channel-item span:nth-child(2), .user-info { display: none; }
-      .channel-item { justify-content: center; }
-      .channel-item span { margin-right: 0; }
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar, .members-sidebar { display: none; }
     } 
   </style> 
 </head> 
@@ -946,9 +878,9 @@
 <body> 
 
   <!-- =========================================================
-       1. AUTHENTICATION LANDING SCREEN
-       ========================================================= -->
-  <div id="authContainer">
+     1. AUTHENTICATION SECTION
+     ========================================================= -->
+  <div id="authSection" class="auth-page">
     <main class="layout"> 
       <section class="brand"> 
         <div class="logo">✦</div> 
@@ -977,8 +909,9 @@
           <div class="field" id="usernameField"> 
             <label for="username">USERNAME</label> 
             <input id="username" name="username" 
-              type="text" 
-              placeholder="Enter your username (> 3 chars)" 
+              type="text" minlength="4" maxlength="24" 
+              pattern="[A-Za-z0-9_]+" 
+              placeholder="Enter your username" 
               autocomplete="username" required> 
           </div> 
    
@@ -986,8 +919,8 @@
             <label for="password">PASSWORD</label> 
             <div class="password-wrapper">
               <input id="password" name="password" 
-                type="password" 
-                placeholder="At least 8 characters" 
+                type="password" minlength="8" maxlength="128" 
+                placeholder="Enter your password" 
                 autocomplete="current-password" required> 
               <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
                 <svg id="eyeIcon" viewBox="0 0 24 24">
@@ -995,14 +928,21 @@
                 </svg>
               </button>
             </div>
+            <button type="button" class="forgot-btn" id="forgotBtn" onclick="openForgotModal()">Forgot your password?</button>
           </div> 
 
-          <label class="checkbox-field">
-            <input type="checkbox" id="rememberMe"> Remember Me
-          </label>
+          <div id="securityQuestionField" class="field" hidden>
+            <label for="securityQ">SECURITY QUESTION (FOR PASSWORD RECOVERY)</label>
+            <select id="securityQ">
+              <option value="pet">What was the name of your first pet?</option>
+              <option value="city">In what city were you born?</option>
+              <option value="school">What was the name of your first school?</option>
+            </select>
+            <input id="securityA" type="text" placeholder="Your Answer" style="margin-top: 8px;">
+          </div>
    
           <div id="birthdayField" hidden> 
-            <div class="field" style="margin-top: 15px;"> 
+            <div class="field"> 
               <label>DATE OF BIRTH</label> 
    
               <div class="birthday"> 
@@ -1048,22 +988,8 @@
             Log In 
           </button> 
    
-          <div class="message" id="message" role="status" 
-            aria-live="polite"></div> 
+          <div class="message" id="message" role="status" aria-live="polite"></div> 
         </form> 
-   
-        <div class="terms"> 
-          By using VibeChat, you agree to follow our rules and 
-          respect other members of the community. 
-        </div> 
-   
-        <details class="terms-details"> 
-          <summary>Read our Terms of Service</summary> 
-          <p><strong>VibeChat Terms of Service</strong></p> 
-          <p><strong>1. Age requirement.</strong> You must be older than 13 years old to create or use a VibeChat account.</p> 
-          <p><strong>2. Your account.</strong> Provide a valid username and password (>3 chars for username, >=8 chars for password).</p> 
-          <p><strong>3. Respectful behaviour.</strong> Do not harass, threaten, bully, or impersonate other users. The Owner (Toastieofficial) moderates this server.</p> 
-        </details> 
    
         <div class="footer"> 
           Made for your community. © 2026 VibeChat<br> 
@@ -1074,184 +1000,209 @@
   </div>
 
   <!-- =========================================================
-       2. SPLASH LOADING SCREEN (10 Seconds)
-       ========================================================= -->
-  <div id="loadingScreen" hidden>
-    <div class="brand-loader-title">ToastieOfficial</div>
+     2. SPLASH LOADING SCREEN (10 SECONDS)
+     ========================================================= -->
+  <div id="loadingScreen" class="loading-screen" hidden>
+    <div class="toastie-title">ToastieOfficial</div>
     <div class="loader-ring"></div>
     <div class="progress-bar-container">
-      <div class="progress-bar-fill" id="progressFill"></div>
+      <div id="progressBarFill" class="progress-bar-fill"></div>
     </div>
-    <div class="loader-subtitle" id="loaderStatus">Establishing secure connection...</div>
+    <div id="loadingStatus" class="loading-status">Connecting to secure servers...</div>
   </div>
 
   <!-- =========================================================
-       3. DISCORD-STYLE CHAT ROOM APPLICATION
-       ========================================================= -->
-  <div id="chatApp" hidden>
-    <!-- Left Navigation Sidebar -->
+     3. MAIN CHAT APPLICATION ROOM
+     ========================================================= -->
+  <div id="chatApp" class="app-container" hidden>
+    <!-- Left Channel Navigation -->
     <aside class="sidebar">
       <div class="server-header">
-        <span>VibeChat Hub</span>
-        <span style="font-size:12px; color:#57f287;">● Online</span>
+        <span>VibeChat Server</span>
+        <span style="font-size: 12px; opacity: 0.6;">✦</span>
       </div>
-
-      <div class="channel-list">
-        <div class="channel-category">Text Channels</div>
-        <div class="channel-item active"><span>#</span>general</div>
-      </div>
-
-      <!-- Current Logged In User Profile -->
-      <div class="user-profile-bar">
-        <div class="avatar" id="userAvatarDisplay">U</div>
-        <div class="user-info">
-          <div class="name" id="userNameDisplay">Username</div>
-          <div class="status">Online</div>
+      <div class="channels-list">
+        <div class="channel-category">TEXT CHANNELS</div>
+        <div class="channel-item active">
+          <span class="channel-icon">#</span>
+          <span>general</span>
         </div>
-        <button class="logout-btn" id="logoutBtn" title="Log Out">✕</button>
+      </div>
+      <div class="user-footer" onclick="openProfileCard(currentUser.username)">
+        <div class="avatar-wrapper">
+          <div class="avatar" id="myAvatar">T</div>
+          <div class="status-indicator"></div>
+        </div>
+        <div class="user-info">
+          <div class="user-name" id="myUserName">
+            Toastieofficial
+            <span id="myOwnerTag" class="owner-badge" hidden>OWNER</span>
+          </div>
+          <div class="user-sub" id="myUserStatus">Online</div>
+        </div>
       </div>
     </aside>
 
-    <!-- Main Chat Window -->
-    <main class="chat-main">
-      <header class="chat-header">
-        <div>
-          <span style="color: #6a6d85; font-size:22px;">#</span>
-          <span id="currentChannelName">general</span>
+    <!-- Center Chat Feed Area -->
+    <main class="chat-area">
+      <div class="chat-header">
+        <span style="font-size: 20px; color: #80848e;">#</span>
+        <span>general</span>
+      </div>
+      
+      <div class="chat-feed" id="chatFeed">
+        <!-- Messages populate dynamically -->
+      </div>
+
+      <div class="input-dock">
+        <div id="replyBar" class="reply-preview-bar" hidden>
+          <span id="replyText">Replying to...</span>
+          <button onclick="cancelReply()" style="background:none; border:none; color:white; cursor:pointer;">✕</button>
         </div>
-      </header>
-
-      <!-- Message History Container -->
-      <div class="chat-messages" id="chatMessages"></div>
-
-      <!-- Active Reply Preview Header -->
-      <div class="reply-preview-bar" id="replyPreviewBar" hidden>
-        <div>Replying to <span id="replyTargetAuthor">User</span></div>
-        <button class="cancel-reply-btn" id="cancelReplyBtn">✕</button>
-      </div>
-
-      <!-- Timeout Warning Banner -->
-      <div class="timeout-banner" id="timeoutBanner" hidden>
-         You are currently timed out by Toastieofficial.
-      </div>
-
-      <!-- Sticky Bottom Input -->
-      <div class="chat-input-area">
-        <div class="chat-input-box">
-          <input type="file" id="mediaUpload" accept="image/*,video/*" hidden>
-          <button type="button" class="attach-btn" id="attachBtn" title="Attach Image or Video">+</button>
-          <input type="text" id="messageInput" placeholder="Message #general..." autocomplete="off">
-          <button type="button" class="send-btn" id="sendBtn">Send</button>
+        <div class="input-wrapper">
+          <input type="file" id="mediaInput" accept="image/*,video/*" hidden onchange="handleFileUpload(event)">
+          <button class="attach-btn" onclick="document.getElementById('mediaInput').click()">+</button>
+          <input type="text" id="messageInput" class="chat-input" placeholder="Message #general" onkeydown="handleKeyPress(event)">
         </div>
       </div>
     </main>
 
     <!-- Right Members Sidebar -->
     <aside class="members-sidebar">
-      <div class="members-title" id="membersCountTitle">Online Members</div>
+      <div class="member-category">OWNER — <span id="ownerCount">2</span></div>
+      <div id="ownersList"></div>
+
+      <div class="member-category" style="margin-top: 10px;">MEMBERS — <span id="memberCount">0</span></div>
       <div id="membersList"></div>
     </aside>
   </div>
 
-  <!-- Timeout Options Modal -->
-  <div class="modal-overlay" id="timeoutModal" hidden>
-    <div class="modal">
-      <h3>Timeout User</h3>
-      <p id="timeoutModalUser" style="font-size:13px; color:var(--text-muted); margin-bottom:15px;"></p>
-      <div class="modal-options">
-        <button class="modal-btn" onclick="applyTimeout(30)">30 Seconds</button>
-        <button class="modal-btn" onclick="applyTimeout(3600)">1 Hour</button>
-        <button class="modal-btn" onclick="applyTimeout(36000)">10 Hours</button>
-        <button class="modal-btn" onclick="applyTimeout(86400)">1 Day</button>
-        <button class="modal-btn remove-time" onclick="applyTimeout(0)">Remove Timeout</button>
+  <!-- =========================================================
+     4. MODAL OVERLAYS (PASSWORD RECOVERY, TIMEOUT, PROFILE CARD)
+     ========================================================= -->
+  <!-- Forgot Password Modal -->
+  <div id="forgotModal" class="modal-overlay" hidden>
+    <div class="modal-box">
+      <h3 class="modal-title">Reset Password</h3>
+      <p class="modal-sub">Verify your account details to set a new password.</p>
+      
+      <div class="field">
+        <label>USERNAME</label>
+        <input type="text" id="recUsername" placeholder="Enter your username">
       </div>
-      <button class="modal-close" onclick="closeTimeoutModal()">Cancel</button>
+      <div class="field">
+        <label>SECURITY ANSWER</label>
+        <input type="text" id="recAnswer" placeholder="Your answer">
+      </div>
+      <div class="field">
+        <label>NEW PASSWORD</label>
+        <input type="password" id="recNewPassword" placeholder="Minimum 8 characters">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeForgotModal()">Cancel</button>
+        <button class="submit" style="width:auto; margin:0;" onclick="submitPasswordReset()">Reset Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Owner Timeout Action Modal -->
+  <div id="timeoutModal" class="modal-overlay" hidden>
+    <div class="modal-box">
+      <h3 class="modal-title" style="color:#fee75c;">Timeout Member</h3>
+      <p class="modal-sub">Select a duration to temporarily mute this user in #general.</p>
+      
+      <div class="field">
+        <label>DURATION</label>
+        <select id="timeoutDuration">
+          <option value="30s">30 Seconds</option>
+          <option value="1h">1 Hour</option>
+          <option value="10h">10 Hours</option>
+          <option value="1d">1 Day</option>
+          <option value="remove">Remove Timeout</option>
+        </select>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeTimeoutModal()">Cancel</button>
+        <button class="btn-danger" onclick="applyTimeout()">Apply Action</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Discord-style User Profile Card Modal -->
+  <div id="profileModal" class="modal-overlay" hidden onclick="closeProfileCardOnOutside(event)">
+    <div class="profile-card" id="profileCardContent">
+      <div class="profile-banner"></div>
+      <div class="profile-avatar-container">
+        <div class="profile-avatar" id="pCardAvatar">T</div>
+      </div>
+      
+      <div class="profile-body">
+        <div class="profile-display-name" id="pCardName">
+          Toastieofficial
+          <span class="owner-badge" id="pCardOwnerBadge" hidden>OWNER</span>
+        </div>
+        <div class="profile-username" id="pCardUsername">@Toastieofficial</div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-section-title">STATUS</div>
+        <div id="pCardStatus" style="font-size: 13px; color: #dbdee1; margin-bottom: 12px;">Online</div>
+
+        <div class="profile-section-title">ABOUT ME</div>
+        <div id="pCardBio" class="profile-bio">Welcome to my profile!</div>
+        
+        <div id="editProfileFields" hidden style="margin-top: 10px;">
+          <textarea id="editBioInput" class="edit-bio-textarea" placeholder="Write a short bio..."></textarea>
+          <button class="submit" style="padding: 8px; font-size: 12px; margin-top: 8px;" onclick="saveProfileChanges()">Save Changes</button>
+        </div>
+
+        <div id="editProfileBtnWrapper" style="margin-top: 12px;" hidden>
+          <button class="btn-secondary" style="width: 100%; background: #2b2d31;" onclick="toggleBioEdit()">Edit Profile</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- =========================================================
-       JAVASCRIPT LOGIC
-       ========================================================= -->
+     5. JAVASCRIPT LOGIC
+     ========================================================= -->
   <script> 
     let mode = "login"; 
-    let currentUser = null;
-    let activeReplyTo = null;
+    let activeReply = null;
     let selectedTimeoutTarget = null;
+    let viewingProfileUsername = null;
 
-    const OWNER_USERNAME = "Toastieofficial";
+    // Hardcoded Owners
+    const OWNERS = ["Toastieofficial", "Toastieofficial2"];
 
-    // App State Management using LocalStorage
-    let registeredUsers = JSON.parse(localStorage.getItem('vibe_users') || '{}');
-    let chatMessagesData = JSON.parse(localStorage.getItem('vibe_messages') || '[]');
-    let userTimeouts = JSON.parse(localStorage.getItem('vibe_timeouts') || '{}');
+    // App state loaded from LocalStorage
+    let usersDb = JSON.parse(localStorage.getItem("vibechat_users_db")) || {
+      "Toastieofficial": { password: "password123", securityQ: "pet", securityA: "toast", bio: "VibeChat Owner & Creator ✦", status: "Online" },
+      "Toastieofficial2": { password: "password123", securityQ: "pet", securityA: "toast", bio: "Co-Owner of VibeChat ✦", status: "Online" }
+    };
 
-    // Default messages if empty
-    if (chatMessagesData.length === 0) {
-      chatMessagesData = [
-        {
-          id: 'msg_1',
-          author: OWNER_USERNAME,
-          text: 'Welcome to VibeChat! Feel free to chat, share photos, or post videos! 🚀',
-          timestamp: 'Today at 12:00 PM',
-          replyTo: null,
-          mediaUrl: null
-        },
-        {
-          id: 'msg_2',
-          author: 'Alex',
-          text: 'Hey everyone! Excited to be here. ✨',
-          timestamp: 'Today at 12:02 PM',
-          replyTo: null,
-          mediaUrl: null
-        }
-      ];
-      saveMessages();
-    }
+    let messagesDb = JSON.parse(localStorage.getItem("vibechat_messages_db")) || [
+      { id: 1, author: "Toastieofficial", text: "Welcome to VibeChat general room! ✦", time: "12:00 PM" },
+      { id: 2, author: "Toastieofficial2", text: "Co-Owner account connected and operational.", time: "12:01 PM" }
+    ];
 
-    // Always register owner by default
-    if (!registeredUsers[OWNER_USERNAME.toLowerCase()]) {
-      registeredUsers[OWNER_USERNAME.toLowerCase()] = {
-        username: OWNER_USERNAME,
-        password: 'password123'
-      };
-      saveUsers();
-    }
+    let currentUser = JSON.parse(localStorage.getItem("vibechat_session")) || null;
 
-    // Elements
-    const authContainer = document.getElementById("authContainer");
-    const loadingScreen = document.getElementById("loadingScreen");
-    const chatApp = document.getElementById("chatApp");
-    
+    // DOM Elements
     const form = document.getElementById("authForm"); 
     const message = document.getElementById("message"); 
     const usernameInput = document.getElementById("username"); 
     const passwordInput = document.getElementById("password"); 
-    const rememberMeCheckbox = document.getElementById("rememberMe");
     const togglePasswordBtn = document.getElementById("togglePassword");
     const eyeIcon = document.getElementById("eyeIcon");
     const day = document.getElementById("day"); 
     const month = document.getElementById("month"); 
     const year = document.getElementById("year"); 
-    const acceptTerms = document.getElementById("acceptTerms");
+    const acceptTerms = document.getElementById("acceptTerms"); 
 
-    // Chat Elements
-    const chatMessages = document.getElementById("chatMessages");
-    const messageInput = document.getElementById("messageInput");
-    const sendBtn = document.getElementById("sendBtn");
-    const attachBtn = document.getElementById("attachBtn");
-    const mediaUpload = document.getElementById("mediaUpload");
-    const userNameDisplay = document.getElementById("userNameDisplay");
-    const userAvatarDisplay = document.getElementById("userAvatarDisplay");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const membersList = document.getElementById("membersList");
-    const membersCountTitle = document.getElementById("membersCountTitle");
-    const replyPreviewBar = document.getElementById("replyPreviewBar");
-    const replyTargetAuthor = document.getElementById("replyTargetAuthor");
-    const cancelReplyBtn = document.getElementById("cancelReplyBtn");
-    const timeoutBanner = document.getElementById("timeoutBanner");
-    const timeoutModal = document.getElementById("timeoutModal");
-
-    // Eye Toggle Paths
+    // Password Toggle SVG Paths
     const openEyePath = "M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z";
     const closedEyePath = "M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.17c0-1.66-1.34-3-3-3l-.17.02z";
 
@@ -1261,23 +1212,6 @@
       eyeIcon.querySelector("path").setAttribute("d", isPassword ? closedEyePath : openEyePath);
     });
 
-    // Check Persistent Session
-    window.addEventListener('load', () => {
-      const savedSession = localStorage.getItem('vibe_session');
-      if (savedSession) {
-        currentUser = JSON.parse(savedSession);
-        enterChatRoomDirectly();
-      }
-    });
-
-    function saveUsers() { localStorage.setItem('vibe_users', JSON.stringify(registeredUsers)); }
-    function saveMessages() { localStorage.setItem('vibe_messages', JSON.stringify(chatMessagesData)); }
-    function saveTimeouts() { localStorage.setItem('vibe_timeouts', JSON.stringify(userTimeouts)); }
-
-    function isOwner(username) {
-      return username && username.toLowerCase() === OWNER_USERNAME.toLowerCase();
-    }
-
     function setMode(nextMode) { 
       mode = nextMode; 
       const signup = mode === "signup"; 
@@ -1285,10 +1219,14 @@
       document.getElementById("loginTab").classList.toggle("active", !signup); 
       document.getElementById("signupTab").classList.toggle("active", signup); 
  
-      document.getElementById("heading").textContent = signup ? "Create your account" : "Welcome back!"; 
-      document.getElementById("subtitle").textContent = signup ? "Choose a username and password to join VibeChat." : "Log in with your username and password."; 
+      document.getElementById("heading").textContent = signup ? "Create account" : "Welcome back!"; 
+      document.getElementById("subtitle").textContent = signup 
+        ? "Choose a username and password to join VibeChat." 
+        : "Log in with your username and password."; 
  
       document.getElementById("birthdayField").hidden = !signup; 
+      document.getElementById("securityQuestionField").hidden = !signup; 
+      document.getElementById("forgotBtn").hidden = signup; 
  
       day.required = signup; 
       month.required = signup; 
@@ -1301,410 +1239,403 @@
       message.style.display = "none"; 
       message.textContent = ""; 
     } 
- 
+
     function showMessage(text) { 
       message.textContent = text; 
       message.style.display = "block"; 
-    } 
- 
+    }
+
     function isOlderThan13(d, m, y) { 
       const today = new Date(); 
       const birth = new Date(y, m - 1, d); 
       if (birth.getFullYear() !== y || birth.getMonth() !== m - 1 || birth.getDate() !== d || birth > today) return false; 
       let age = today.getFullYear() - y; 
-      const birthdayHasNotOccurred = today.getMonth() < m - 1 || (today.getMonth() === m - 1 && today.getDate() < d); 
-      if (birthdayHasNotOccurred) age--; 
-      return age > 13; 
-    } 
+      const bdayNotPassed = today.getMonth() < m - 1 || (today.getMonth() === m - 1 && today.getDate() < d); 
+      if (bdayNotPassed) age--; 
+      return age >= 13; 
+    }
 
-    // Form Submission & Validation
-    form.addEventListener("submit", function(event) { 
-      event.preventDefault(); 
-      
-      const uname = usernameInput.value.trim();
-      const pwd = passwordInput.value;
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const userVal = usernameInput.value.trim();
+      const passVal = passwordInput.value;
 
-      // Rule 1: Username strictly MORE than 3 characters
-      if (uname.length <= 3) {
-        showMessage("Username must be strictly MORE than 3 characters long.");
+      if (userVal.length < 4) {
+        showMessage("Username must be at least 4 characters long.");
         return;
       }
 
-      // Rule 2: Password strictly 8 characters or more
-      if (pwd.length < 8) {
-        showMessage("Password must be strictly 8 characters or more.");
+      if (passVal.length < 8) {
+        showMessage("Password must be at least 8 characters long.");
         return;
       }
 
-      const unameKey = uname.toLowerCase();
-
-      if (mode === "signup") { 
-        if (registeredUsers[unameKey]) {
-          showMessage("Username is already taken. Please choose another.");
+      if (mode === "signup") {
+        if (usersDb[userVal]) {
+          showMessage("That username is already taken. Please choose another.");
           return;
         }
 
-        const d = Number(day.value); 
-        const m = Number(month.value); 
-        const y = Number(year.value); 
- 
-        if (!isOlderThan13(d, m, y)) { 
-          showMessage("You must be older than 13 to use VibeChat."); 
-          return; 
-        } 
-        if (!acceptTerms.checked) { 
-          showMessage("You must agree to the Terms of Service."); 
-          return; 
-        } 
+        const d = Number(day.value);
+        const m = Number(month.value);
+        const y = Number(year.value);
+        if (!isOlderThan13(d, m, y)) {
+          showMessage("You must be at least 13 years old to use VibeChat.");
+          return;
+        }
 
-        // Register user
-        registeredUsers[unameKey] = {
-          username: uname,
-          password: pwd
-        };
-        saveUsers();
+        if (!acceptTerms.checked) {
+          showMessage("You must accept the Terms of Service.");
+          return;
+        }
+
+        const secQ = document.getElementById("securityQ").value;
+        const secA = document.getElementById("securityA").value.trim();
+
+        usersDb[userVal] = { password: passVal, securityQ: secQ, securityA: secA, bio: "Hey there! I am using VibeChat.", status: "Online" };
+        localStorage.setItem("vibechat_users_db", JSON.stringify(usersDb));
+        
+        currentUser = { username: userVal };
+        localStorage.setItem("vibechat_session", JSON.stringify(currentUser));
+        startLoadingSequence();
+
       } else {
-        // Log in verification
-        if (!registeredUsers[unameKey]) {
-          showMessage("User not found. Please sign up first.");
+        if (!usersDb[userVal] || usersDb[userVal].password !== passVal) {
+          showMessage("Invalid username or password.");
           return;
         }
-        if (registeredUsers[unameKey].password !== pwd) {
-          showMessage("Incorrect password. Please try again.");
-          return;
-        }
+
+        currentUser = { username: userVal };
+        localStorage.setItem("vibechat_session", JSON.stringify(currentUser));
+        startLoadingSequence();
       }
-
-      // Preserve actual casing for Owner
-      const finalUsername = isOwner(uname) ? OWNER_USERNAME : (registeredUsers[unameKey]?.username || uname);
-      currentUser = { username: finalUsername };
-
-      if (rememberMeCheckbox.checked) {
-        localStorage.setItem('vibe_session', JSON.stringify(currentUser));
-      } else {
-        localStorage.removeItem('vibe_session');
-      }
-
-      startLoadingSequence();
     });
 
-    // 10-Second Loading Screen Sequence
+    // 10-Second Loading Screen Timer Sequence
     function startLoadingSequence() {
-      authContainer.hidden = true;
-      loadingScreen.hidden = false;
+      document.getElementById("authSection").hidden = true;
+      const loader = document.getElementById("loadingScreen");
+      loader.hidden = false;
 
-      const fill = document.getElementById("progressFill");
-      const statusText = document.getElementById("loaderStatus");
-      
+      const fill = document.getElementById("progressBarFill");
+      const statusText = document.getElementById("loadingStatus");
+
       let progress = 0;
-      const totalDuration = 10000; // 10 seconds
-      const intervalTime = 100;
-      const step = (intervalTime / totalDuration) * 100;
-
-      const statuses = [
-        "Connecting to secure servers...",
-        "Loading channels & messages...",
-        "Syncing ToastieOfficial preferences...",
-        "Preparing your workspace...",
-        "Almost ready..."
-      ];
-
-      const progressInterval = setInterval(() => {
-        progress += step;
-        if (progress > 100) progress = 100;
+      const interval = setInterval(() => {
+        progress += 1;
         fill.style.width = progress + "%";
 
-        const statusIdx = Math.min(Math.floor((progress / 100) * statuses.length), statuses.length - 1);
-        statusText.textContent = statuses[statusIdx];
+        if (progress === 20) statusText.textContent = "Loading user settings & permissions...";
+        if (progress === 50) statusText.textContent = "Decrypting chat feeds...";
+        if (progress === 80) statusText.textContent = "Preparing VibeChat interface...";
 
         if (progress >= 100) {
-          clearInterval(progressInterval);
-          setTimeout(enterChatRoom, 400);
+          clearInterval(interval);
+          loader.hidden = true;
+          launchChatRoom();
         }
-      }, intervalTime);
+      }, 100); // 100ms * 100 = 10,000ms = 10s
     }
 
-    function enterChatRoomDirectly() {
-      authContainer.hidden = true;
-      loadingScreen.hidden = true;
-      enterChatRoom();
-    }
-
-    // Transition into Chat UI
-    function enterChatRoom() {
-      loadingScreen.hidden = true;
-      chatApp.hidden = false;
-
-      // Set user UI info
-      const isUserOwner = isOwner(currentUser.username);
-      userNameDisplay.innerHTML = `${escapeHTML(currentUser.username)}${isUserOwner ? '<span class="owner-badge">OWNER</span>' : ''}`;
+    // Launch Chat Interface
+    function launchChatRoom() {
+      document.getElementById("chatApp").hidden = false;
       
-      userAvatarDisplay.textContent = currentUser.username.charAt(0).toUpperCase();
-      if (isUserOwner) {
-        userAvatarDisplay.classList.add("owner-avatar");
-      } else {
-        userAvatarDisplay.classList.remove("owner-avatar");
-      }
+      const isOwner = OWNERS.includes(currentUser.username);
+      document.getElementById("myUserName").childNodes[0].textContent = currentUser.username + " ";
+      document.getElementById("myOwnerTag").hidden = !isOwner;
+      document.getElementById("myAvatar").textContent = currentUser.username.charAt(0).toUpperCase();
 
-      renderMessages();
-      renderMembersList();
-      checkTimeoutStatus();
-
-      // Periodically check timeouts
-      setInterval(checkTimeoutStatus, 3000);
+      renderChatMessages();
+      renderMembersSidebar();
     }
 
-    logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem('vibe_session');
-      location.reload();
-    });
+    function renderChatMessages() {
+      const feed = document.getElementById("chatFeed");
+      feed.innerHTML = "";
 
-    // Handle Timeouts
-    function checkTimeoutStatus() {
-      if (!currentUser) return;
-      const userKey = currentUser.username.toLowerCase();
-      const timeoutUntil = userTimeouts[userKey];
+      messagesDb.forEach(msg => {
+        const isMsgOwner = OWNERS.includes(msg.author);
+        const card = document.createElement("div");
+        card.className = "message-card";
 
-      if (timeoutUntil && Date.now() < timeoutUntil) {
-        // Currently timed out
-        timeoutBanner.hidden = false;
-        messageInput.disabled = true;
-        sendBtn.disabled = true;
-        attachBtn.disabled = true;
-        messageInput.placeholder = "You are currently timed out.";
-      } else {
-        // Active
-        if (userTimeouts[userKey]) {
-          delete userTimeouts[userKey];
-          saveTimeouts();
-        }
-        timeoutBanner.hidden = true;
-        messageInput.disabled = false;
-        sendBtn.disabled = false;
-        attachBtn.disabled = false;
-        messageInput.placeholder = "Message #general...";
-      }
-    }
-
-    // Open Timeout Modal for Owner
-    window.openTimeoutModal = function(username) {
-      if (!isOwner(currentUser.username)) return;
-      if (isOwner(username)) return; // Cannot timeout the Owner
-
-      selectedTimeoutTarget = username;
-      document.getElementById('timeoutModalUser').textContent = `Manage timeout for: ${username}`;
-      timeoutModal.hidden = false;
-    };
-
-    window.closeTimeoutModal = function() {
-      timeoutModal.hidden = true;
-      selectedTimeoutTarget = null;
-    };
-
-    window.applyTimeout = function(seconds) {
-      if (!selectedTimeoutTarget) return;
-      const targetKey = selectedTimeoutTarget.toLowerCase();
-
-      if (seconds === 0) {
-        delete userTimeouts[targetKey];
-      } else {
-        userTimeouts[targetKey] = Date.now() + (seconds * 1000);
-      }
-
-      saveTimeouts();
-      closeTimeoutModal();
-      renderMembersList();
-      checkTimeoutStatus();
-    };
-
-    // Render Members Sidebar
-    function renderMembersList() {
-      membersList.innerHTML = "";
-      const allUsers = Object.values(registeredUsers);
-      membersCountTitle.textContent = `Members — ${allUsers.length}`;
-
-      allUsers.forEach(usr => {
-        const item = document.createElement("div");
-        item.className = "member-item";
-        
-        const isUserOwner = isOwner(usr.username);
-        const targetKey = usr.username.toLowerCase();
-        const isTimedOut = userTimeouts[targetKey] && Date.now() < userTimeouts[targetKey];
-
-        let timeoutBtnHTML = "";
-        if (isOwner(currentUser.username) && !isUserOwner) {
-          timeoutBtnHTML = `<button class="timeout-btn" onclick="openTimeoutModal('${escapeHTML(usr.username)}')">${isTimedOut ? 'Timed Out' : 'Timeout'}</button>`;
+        // Green highlight if current user is @mentioned
+        if (currentUser && msg.text.includes(`@${currentUser.username}`)) {
+          card.classList.add("mentioned");
         }
 
-        item.innerHTML = `
-          <div class="member-info-wrapper">
-            <div class="member-avatar ${isUserOwner ? 'owner-avatar' : ''}">${usr.username.charAt(0).toUpperCase()}</div>
-            <div class="member-name">
-              ${escapeHTML(usr.username)}
-              ${isUserOwner ? '<span class="owner-badge">OWNER</span>' : ''}
+        let formattedText = msg.text.replace(/@([A-Za-z0-9_]+)/g, '<span class="mention-text">@$1</span>');
+
+        let mediaHtml = "";
+        if (msg.media) {
+          if (msg.mediaType.startsWith("image/")) {
+            mediaHtml = `<img src="${msg.media}" class="media-attachment">`;
+          } else if (msg.mediaType.startsWith("video/")) {
+            mediaHtml = `<video src="${msg.media}" controls class="media-attachment"></video>`;
+          }
+        }
+
+        let replyHtml = "";
+        if (msg.replyTo) {
+          replyHtml = `<div class="reply-quote">↳ <b>@${msg.replyTo.author}</b>: ${msg.replyTo.text}</div>`;
+        }
+
+        const canDelete = currentUser && (isOwnerUser() || msg.author === currentUser.username);
+
+        card.innerHTML = `
+          <div class="avatar" onclick="openProfileCard('${msg.author}')" style="cursor:pointer">${msg.author.charAt(0).toUpperCase()}</div>
+          <div style="flex: 1;">
+            ${replyHtml}
+            <div class="msg-header">
+              <span class="msg-author" onclick="openProfileCard('${msg.author}')">${msg.author}</span>
+              ${isMsgOwner ? '<span class="owner-badge">OWNER</span>' : ''}
+              <span class="msg-time">${msg.time}</span>
             </div>
+            <div class="msg-content">${formattedText}</div>
+            ${mediaHtml}
           </div>
-          ${timeoutBtnHTML}
+          <div class="msg-actions">
+            <button class="action-btn" onclick="setReply(${msg.id})">Reply</button>
+            ${isOwnerUser() && !OWNERS.includes(msg.author) ? `<button class="action-btn" onclick="openTimeoutModal('${msg.author}')">Timeout</button>` : ''}
+            ${canDelete ? `<button class="action-btn delete" onclick="deleteMessage(${msg.id})">Delete</button>` : ''}
+          </div>
         `;
 
-        membersList.appendChild(item);
+        feed.appendChild(card);
       });
+
+      feed.scrollTop = feed.scrollHeight;
     }
 
-    // Attachment & Message Sending
-    attachBtn.addEventListener("click", () => mediaUpload.click());
+    function renderMembersSidebar() {
+      const ownersList = document.getElementById("ownersList");
+      const membersList = document.getElementById("membersList");
+      
+      ownersList.innerHTML = "";
+      membersList.innerHTML = "";
 
-    mediaUpload.addEventListener("change", function() {
-      const file = this.files[0];
-      if (!file) return;
+      let oCount = 0;
+      let mCount = 0;
 
-      const fileURL = URL.createObjectURL(file);
-      const isVideo = file.type.startsWith("video/");
+      Object.keys(usersDb).forEach(uName => {
+        const isO = OWNERS.includes(uName);
+        const uObj = usersDb[uName];
 
-      postMessage(file.name, fileURL, isVideo);
-      this.value = "";
-    });
+        const item = document.createElement("div");
+        item.className = `member-item ${isO ? 'owner' : ''}`;
+        item.onclick = () => openProfileCard(uName);
 
-    function sendMessage() {
-      const text = messageInput.value.trim();
-      if (!text) return;
+        item.innerHTML = `
+          <div class="avatar">${uName.charAt(0).toUpperCase()}</div>
+          <div class="member-info">
+            <div class="member-name">
+              ${uName}
+              ${isO ? '<span class="owner-badge">OWNER</span>' : ''}
+            </div>
+            <div class="member-status">${uObj.status || 'Online'}</div>
+          </div>
+        `;
 
-      postMessage(text, null, false);
-      messageInput.value = "";
-      cancelReply();
+        if (isO) {
+          ownersList.appendChild(item);
+          oCount++;
+        } else {
+          membersList.appendChild(item);
+          mCount++;
+        }
+      });
+
+      document.getElementById("ownerCount").textContent = oCount;
+      document.getElementById("memberCount").textContent = mCount;
     }
 
-    function postMessage(text, mediaUrl, isVideo) {
-      const userKey = currentUser.username.toLowerCase();
-      if (userTimeouts[userKey] && Date.now() < userTimeouts[userKey]) {
-        alert("You are timed out and cannot send messages.");
+    function isOwnerUser() {
+      return currentUser && OWNERS.includes(currentUser.username);
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    }
+
+    function sendMessage(mediaData = null, mediaType = null) {
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim();
+
+      if (!text && !mediaData) return;
+
+      // Check for Active Timeout
+      if (currentUser.timeoutUntil && Date.now() < currentUser.timeoutUntil) {
+        const remaining = Math.ceil((currentUser.timeoutUntil - Date.now()) / 1000);
+        alert(`You are currently timed out! Please wait ${remaining} seconds.`);
         return;
       }
 
       const now = new Date();
-      const timeStr = `Today at ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')} ${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       const newMsg = {
-        id: 'msg_' + Date.now(),
+        id: Date.now(),
         author: currentUser.username,
         text: text,
-        timestamp: timeStr,
-        replyTo: activeReplyTo,
-        mediaUrl: mediaUrl,
-        isVideo: isVideo
+        time: timeStr,
+        media: mediaData,
+        mediaType: mediaType,
+        replyTo: activeReply
       };
 
-      chatMessagesData.push(newMsg);
-      saveMessages();
-      renderMessages();
+      messagesDb.push(newMsg);
+      localStorage.setItem("vibechat_messages_db", JSON.stringify(messagesDb));
+
+      input.value = "";
+      cancelReply();
+      renderChatMessages();
     }
 
-    sendBtn.addEventListener("click", sendMessage);
-    messageInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
 
-    // Message Actions (Reply & Delete)
-    window.initiateReply = function(msgId) {
-      const targetMsg = chatMessagesData.find(m => m.id === msgId);
-      if (!targetMsg) return;
-
-      activeReplyTo = {
-        id: targetMsg.id,
-        author: targetMsg.author,
-        text: targetMsg.text
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        sendMessage(evt.target.result, file.type);
       };
+      reader.readAsDataURL(file);
+    }
 
-      replyTargetAuthor.textContent = targetMsg.author;
-      replyPreviewBar.hidden = false;
-      messageInput.focus();
-    };
+    function setReply(msgId) {
+      const msg = messagesDb.find(m => m.id === msgId);
+      if (!msg) return;
+      activeReply = { author: msg.author, text: msg.text };
+      document.getElementById("replyText").textContent = `Replying to @${msg.author}`;
+      document.getElementById("replyBar").hidden = false;
+    }
 
     function cancelReply() {
-      activeReplyTo = null;
-      replyPreviewBar.hidden = true;
+      activeReply = null;
+      document.getElementById("replyBar").hidden = true;
     }
-    cancelReplyBtn.addEventListener("click", cancelReply);
 
-    window.deleteMessage = function(msgId) {
-      const msg = chatMessagesData.find(m => m.id === msgId);
-      if (!msg) return;
+    function deleteMessage(msgId) {
+      messagesDb = messagesDb.filter(m => m.id !== msgId);
+      localStorage.setItem("vibechat_messages_db", JSON.stringify(messagesDb));
+      renderChatMessages();
+    }
 
-      // Allow deletion if user created the message OR if current user is Toastieofficial (Owner)
-      if (msg.author === currentUser.username || isOwner(currentUser.username)) {
-        chatMessagesData = chatMessagesData.filter(m => m.id !== msgId);
-        saveMessages();
-        renderMessages();
+    // Owner Timeout Modal Logic
+    function openTimeoutModal(targetUser) {
+      selectedTimeoutTarget = targetUser;
+      document.getElementById("timeoutModal").hidden = false;
+    }
+
+    function closeTimeoutModal() {
+      selectedTimeoutTarget = null;
+      document.getElementById("timeoutModal").hidden = true;
+    }
+
+    function applyTimeout() {
+      if (!selectedTimeoutTarget) return;
+
+      const dur = document.getElementById("timeoutDuration").value;
+      let ms = 0;
+
+      if (dur === "30s") ms = 30 * 1000;
+      if (dur === "1h") ms = 60 * 60 * 1000;
+      if (dur === "10h") ms = 10 * 60 * 60 * 1000;
+      if (dur === "1d") ms = 24 * 60 * 60 * 1000;
+
+      if (dur === "remove") {
+        if (usersDb[selectedTimeoutTarget]) delete usersDb[selectedTimeoutTarget].timeoutUntil;
+      } else {
+        if (usersDb[selectedTimeoutTarget]) usersDb[selectedTimeoutTarget].timeoutUntil = Date.now() + ms;
       }
-    };
 
-    // Render All Messages
-    function renderMessages() {
-      chatMessages.innerHTML = "";
-
-      chatMessagesData.forEach(msg => {
-        const card = document.createElement("div");
-        const isMsgOwner = isOwner(msg.author);
-        const isMentioned = msg.text.includes(`@${currentUser.username}`);
-        
-        card.className = `message-card ${isMentioned ? 'is-mention' : ''}`;
-
-        // Highlight mentions in text
-        let formattedText = escapeHTML(msg.text);
-        const mentionRegex = new RegExp(`@(${currentUser.username}|[A-Za-z0-9_]+)`, 'g');
-        formattedText = formattedText.replace(mentionRegex, `<span class="mention-tag">@$1</span>`);
-
-        let replyHTML = "";
-        if (msg.replyTo) {
-          replyHTML = `
-            <div class="reply-reference">
-              ↳ Replying to <span>@${escapeHTML(msg.replyTo.author)}</span>: "${escapeHTML(msg.replyTo.text.substring(0, 30))}${msg.replyTo.text.length > 30 ? '...' : ''}"
-            </div>
-          `;
-        }
-
-        let mediaHTML = "";
-        if (msg.mediaUrl) {
-          if (msg.isVideo) {
-            mediaHTML = `<div class="media-attachment"><video src="${msg.mediaUrl}" controls></video></div>`;
-          } else {
-            mediaHTML = `<div class="media-attachment"><img src="${msg.mediaUrl}" alt="Attachment"></div>`;
-          }
-        }
-
-        const canDelete = (msg.author === currentUser.username) || isOwner(currentUser.username);
-
-        card.innerHTML = `
-          <div class="avatar ${isMsgOwner ? 'owner-avatar' : ''}">${msg.author.charAt(0).toUpperCase()}</div>
-          <div class="message-content">
-            ${replyHTML}
-            <div class="message-header">
-              <span class="author-name">
-                ${escapeHTML(msg.author)}
-                ${isMsgOwner ? '<span class="owner-badge">OWNER</span>' : ''}
-              </span>
-              <span class="timestamp">${msg.timestamp}</span>
-            </div>
-            <div class="message-text">${formattedText}</div>
-            ${mediaHTML}
-          </div>
-          <div class="message-actions">
-            <button class="action-btn" onclick="initiateReply('${msg.id}')">Reply</button>
-            ${canDelete ? `<button class="action-btn delete-btn" onclick="deleteMessage('${msg.id}')">Delete</button>` : ''}
-          </div>
-        `;
-
-        chatMessages.appendChild(card);
-      });
-
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      localStorage.setItem("vibechat_users_db", JSON.stringify(usersDb));
+      closeTimeoutModal();
+      alert(`Updated timeout status for @${selectedTimeoutTarget}`);
     }
 
-    function escapeHTML(str) {
-      if (!str) return "";
-      return str.replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
+    // Interactive Profile Card System
+    function openProfileCard(username) {
+      viewingProfileUsername = username;
+      const user = usersDb[username] || { bio: "No bio written yet.", status: "Online" };
+      const isOwner = OWNERS.includes(username);
+
+      document.getElementById("pCardAvatar").textContent = username.charAt(0).toUpperCase();
+      document.getElementById("pCardName").childNodes[0].textContent = username + " ";
+      document.getElementById("pCardOwnerBadge").hidden = !isOwner;
+      document.getElementById("pCardUsername").textContent = `@${username}`;
+      document.getElementById("pCardStatus").textContent = user.status || "Online";
+      document.getElementById("pCardBio").textContent = user.bio || "No bio written yet.";
+
+      const isSelf = currentUser && currentUser.username === username;
+      document.getElementById("editProfileBtnWrapper").hidden = !isSelf;
+      document.getElementById("editProfileFields").hidden = true;
+
+      document.getElementById("profileModal").hidden = false;
+    }
+
+    function closeProfileCardOnOutside(e) {
+      if (e.target.id === "profileModal") {
+        document.getElementById("profileModal").hidden = true;
+      }
+    }
+
+    function toggleBioEdit() {
+      const editFields = document.getElementById("editProfileFields");
+      const isHidden = editFields.hidden;
+      editFields.hidden = !isHidden;
+
+      if (isHidden) {
+        document.getElementById("editBioInput").value = usersDb[currentUser.username].bio || "";
+      }
+    }
+
+    function saveProfileChanges() {
+      const newBio = document.getElementById("editBioInput").value.trim();
+      usersDb[currentUser.username].bio = newBio;
+      localStorage.setItem("vibechat_users_db", JSON.stringify(usersDb));
+
+      document.getElementById("pCardBio").textContent = newBio;
+      document.getElementById("editProfileFields").hidden = true;
+    }
+
+    // Forgot Password Logic
+    function openForgotModal() { document.getElementById("forgotModal").hidden = false; }
+    function closeForgotModal() { document.getElementById("forgotModal").hidden = true; }
+
+    function submitPasswordReset() {
+      const uname = document.getElementById("recUsername").value.trim();
+      const ans = document.getElementById("recAnswer").value.trim();
+      const newPass = document.getElementById("recNewPassword").value;
+
+      if (!usersDb[uname]) {
+        alert("Username not found.");
+        return;
+      }
+
+      const uObj = usersDb[uname];
+      if (uObj.securityA && uObj.securityA.toLowerCase() !== ans.toLowerCase()) {
+        alert("Incorrect security answer.");
+        return;
+      }
+
+      if (newPass.length < 8) {
+        alert("New password must be at least 8 characters.");
+        return;
+      }
+
+      uObj.password = newPass;
+      localStorage.setItem("vibechat_users_db", JSON.stringify(usersDb));
+      alert("Password successfully reset! You can now log in.");
+      closeForgotModal();
+    }
+
+    // Auto-login session restore check
+    if (currentUser && usersDb[currentUser.username]) {
+      startLoadingSequence();
     }
   </script> 
 </body> 
