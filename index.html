@@ -1,475 +1,531 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>VibeChat | Welcome</title> 
+ 
+  <style> 
+    * { box-sizing: border-box; } 
+ 
+    body { 
+      margin: 0; 
+      min-height: 100vh; 
+      padding: 25px; 
+      display: grid; 
+      place-items: center; 
+      font-family: Arial, sans-serif; 
+      color: #f5f5fa; 
+      background: 
+        radial-gradient(ellipse at 15% 15%, #29245a, transparent 45%), 
+        radial-gradient(ellipse at 85% 85%, #172d4c, transparent 45%), 
+        #111218; 
+    } 
+ 
+    .layout { 
+      width: 100%; 
+      max-width: 960px; 
+      display: grid; 
+      grid-template-columns: 1fr 410px; 
+      align-items: center; 
+      gap: 55px; 
+    } 
+ 
+    .brand { padding: 15px; } 
+ 
+    .logo { 
+      width: 58px; 
+      height: 58px; 
+      display: grid; 
+      place-items: center; 
+      background: #5865f2; 
+      border-radius: 17px; 
+      font-size: 28px; 
+      margin-bottom: 25px; 
+    } 
+ 
+    h1 { 
+      font-size: clamp(38px, 5vw, 56px); 
+      letter-spacing: -2px; 
+      line-height: 1.1; 
+      margin: 0 0 18px; 
+    } 
+ 
+    .brand p { 
+      color: #a5a8ba; 
+      line-height: 1.8; 
+    } 
+ 
+    .card { 
+      padding: 32px; 
+      border: 1px solid #343544; 
+      border-radius: 22px; 
+      background: #1c1d27; 
+      box-shadow: 0 25px 80px #0005; 
+    } 
+ 
+    .tabs { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      padding: 5px; 
+      gap: 5px; 
+      background: #13141c; 
+      border-radius: 12px; 
+      margin-bottom: 28px; 
+    } 
+ 
+    button { font-family: inherit; } 
+ 
+    .tab { 
+      padding: 12px; 
+      border: 0; 
+      border-radius: 9px; 
+      color: #a5a8ba; 
+      background: transparent; 
+      cursor: pointer; 
+    } 
+ 
+    .tab.active { 
+      color: white; 
+      background: #5865f2; 
+    } 
+ 
+    h2 { margin: 0 0 9px; font-size: 26px; } 
+ 
+    .subtitle { 
+      color: #a5a8ba; 
+      font-size: 14px; 
+      line-height: 1.6; 
+      margin: 0 0 25px; 
+    } 
+ 
+    .field { margin-bottom: 17px; } 
+ 
+    label { 
+      display: block; 
+      font-size: 12px; 
+      font-weight: bold; 
+      margin-bottom: 8px; 
+    } 
+ 
+    input, select { 
+      width: 100%; 
+      min-width: 0; 
+      padding: 13px; 
+      border: 1px solid #383948; 
+      border-radius: 9px; 
+      background: #13141c; 
+      color: white; 
+      font-size: 14px; 
+      outline: none; 
+    } 
+ 
+    input:focus, select:focus { 
+      border-color: #818bff; 
+    } 
+ 
+    input::placeholder { color: #777b8e; } 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VibeChat | Welcome</title>
-
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 25px;
-      display: grid;
-      place-items: center;
-      font-family: Arial, sans-serif;
-      color: #f5f5fa;
-      background:
-        radial-gradient(ellipse at 15% 15%, #29245a, transparent 45%),
-        radial-gradient(ellipse at 85% 85%, #172d4c, transparent 45%),
-        #111218;
-    }
-
-    .layout {
-      width: 100%;
-      max-width: 960px;
-      display: grid;
-      grid-template-columns: 1fr 410px;
+    /* Password Input Container & Eye Toggle Styling */
+    .password-wrapper {
+      position: relative;
+      display: flex;
       align-items: center;
-      gap: 55px;
     }
 
-    .brand { padding: 15px; }
-
-    .logo {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      background: #5865f2;
-      border-radius: 17px;
-      font-size: 28px;
-      margin-bottom: 25px;
+    .password-wrapper input {
+      padding-right: 42px;
     }
 
-    h1 {
-      font-size: clamp(38px, 5vw, 56px);
-      letter-spacing: -2px;
-      line-height: 1.1;
-      margin: 0 0 18px;
-    }
-
-    .brand p {
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
       color: #a5a8ba;
-      line-height: 1.8;
-    }
-
-    .card {
-      padding: 32px;
-      border: 1px solid #343544;
-      border-radius: 22px;
-      background: #1c1d27;
-      box-shadow: 0 25px 80px #0005;
-    }
-
-    .tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding: 5px;
-      gap: 5px;
-      background: #13141c;
-      border-radius: 12px;
-      margin-bottom: 28px;
-    }
-
-    button { font-family: inherit; }
-
-    .tab {
-      padding: 12px;
-      border: 0;
-      border-radius: 9px;
-      color: #a5a8ba;
-      background: transparent;
       cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
     }
 
-    .tab.active {
-      color: white;
-      background: #5865f2;
+    .toggle-password:hover {
+      color: #ffffff;
     }
 
-    h2 { margin: 0 0 9px; font-size: 26px; }
-
-    .subtitle {
-      color: #a5a8ba;
-      font-size: 14px;
-      line-height: 1.6;
-      margin: 0 0 25px;
+    .toggle-password svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
     }
 
-    .field { margin-bottom: 17px; }
-
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    input, select {
-      width: 100%;
-      min-width: 0;
-      padding: 13px;
-      border: 1px solid #383948;
-      border-radius: 9px;
-      background: #13141c;
-      color: white;
-      font-size: 14px;
-      outline: none;
-    }
-
-    input:focus, select:focus {
-      border-color: #818bff;
-    }
-
-    input::placeholder { color: #777b8e; }
-
-    .birthday {
-      display: grid;
-      grid-template-columns: 1fr 1.25fr 1.4fr;
-      gap: 8px;
-    }
-
-    .submit {
-      width: 100%;
-      padding: 15px;
-      border: 0;
-      border-radius: 10px;
-      background: #5865f2;
-      color: white;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-
-    .submit:hover { background: #4752c4; }
-
-    .message {
-      display: none;
-      padding: 12px;
-      margin-top: 15px;
-      border-radius: 9px;
-      background: #292d43;
-      color: #d9ddff;
-      font-size: 13px;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
-    }
-
-    .terms {
-      margin-top: 22px;
-      color: #9295a7;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    a { color: #a4adff; }
-
-    .terms-details {
-      margin-top: 12px;
-      border-top: 1px solid #343544;
-      padding-top: 12px;
-    }
-
-    .terms-details summary {
-      cursor: pointer;
-      color: #a4adff;
-      font-size: 12px;
-    }
-
-    .terms-details p,
-    .terms-details li {
-      color: #b4b6c5;
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    .footer {
-      text-align: center;
-      color: #85899b;
-      font-size: 11px;
-      line-height: 1.9;
-      margin-top: 23px;
-    }
-
-    .creator {
-      color: #c0c5ff;
-      font-weight: bold;
-    }
-
-    [hidden] { display: none !important; }
-
-    @media (max-width: 760px) {
-      .layout {
-        grid-template-columns: 1fr;
-        max-width: 430px;
-        gap: 22px;
-      }
-
-      .brand { padding: 0 5px; }
-      .logo { width: 46px; height: 46px; margin-bottom: 15px; }
-      .brand h1 { font-size: 36px; }
-      .brand p { font-size: 14px; margin-bottom: 0; }
-      .card { padding: 25px 21px; }
-    }
-  </style>
-</head>
-
-<body>
-  <main class="layout">
-    <section class="brand">
-      <div class="logo">✦</div>
-      <h1>Your people.<br>Your space.</h1>
-      <p>
-        Welcome to VibeChat. Find your people, join communities,
-        share your moments, and make every conversation count.
-      </p>
-    </section>
-
-    <section class="card">
-      <div class="tabs">
-        <button class="tab active" id="loginTab"
-          type="button" onclick="setMode('login')">Log In</button>
-
-        <button class="tab" id="signupTab"
-          type="button" onclick="setMode('signup')">Sign Up</button>
-      </div>
-
-      <h2 id="heading">Welcome back!</h2>
-      <p class="subtitle" id="subtitle">
-        Log in with your username and password.
-      </p>
-
-      <form id="authForm">
-        <div class="field" id="usernameField">
-          <label for="username">USERNAME</label>
-          <input id="username" name="username"
-            type="text" minlength="3" maxlength="24"
-            pattern="[A-Za-z0-9_]+"
-            placeholder="Enter your username"
-            autocomplete="username" required>
-        </div>
-
-        <div class="field">
-          <label for="password">PASSWORD</label>
-          <input id="password" name="password"
-            type="password" minlength="8" maxlength="128"
-            placeholder="Enter your password"
-            autocomplete="current-password" required>
-        </div>
-
-        <div id="birthdayField" hidden>
-          <div class="field">
-            <label>DATE OF BIRTH</label>
-
-            <div class="birthday">
-              <input id="day" type="number" min="1" max="31"
-                placeholder="Day" aria-label="Birth day">
-
-              <select id="month" aria-label="Birth month">
-                <option value="">Month</option>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </select>
-
-              <input id="year" type="number" min="1900"
-                placeholder="Year" aria-label="Birth year">
-            </div>
+    .birthday { 
+      display: grid; 
+      grid-template-columns: 1fr 1.25fr 1.4fr; 
+      gap: 8px; 
+    } 
+ 
+    .submit { 
+      width: 100%; 
+      padding: 15px; 
+      border: 0; 
+      border-radius: 10px; 
+      background: #5865f2; 
+      color: white; 
+      font-size: 15px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      margin-top: 5px; 
+    } 
+ 
+    .submit:hover { background: #4752c4; } 
+ 
+    .message { 
+      display: none; 
+      padding: 12px; 
+      margin-top: 15px; 
+      border-radius: 9px; 
+      background: #292d43; 
+      color: #d9ddff; 
+      font-size: 13px; 
+      line-height: 1.6; 
+      overflow-wrap: anywhere; 
+    } 
+ 
+    .terms { 
+      margin-top: 22px; 
+      color: #9295a7; 
+      font-size: 12px; 
+      line-height: 1.8; 
+    } 
+ 
+    a { color: #a4adff; } 
+ 
+    .terms-details { 
+      margin-top: 12px; 
+      border-top: 1px solid #343544; 
+      padding-top: 12px; 
+    } 
+ 
+    .terms-details summary { 
+      cursor: pointer; 
+      color: #a4adff; 
+      font-size: 12px; 
+    } 
+ 
+    .terms-details p, 
+    .terms-details li { 
+      color: #b4b6c5; 
+      font-size: 12px; 
+      line-height: 1.7; 
+    } 
+ 
+    .footer { 
+      text-align: center; 
+      color: #85899b; 
+      font-size: 11px; 
+      line-height: 1.9; 
+      margin-top: 23px; 
+    } 
+ 
+    .creator { 
+      color: #c0c5ff; 
+      font-weight: bold; 
+    } 
+ 
+    [hidden] { display: none !important; } 
+ 
+    @media (max-width: 760px) { 
+      .layout { 
+        grid-template-columns: 1fr; 
+        max-width: 430px; 
+        gap: 22px; 
+      } 
+ 
+      .brand { padding: 0 5px; } 
+      .logo { width: 46px; height: 46px; margin-bottom: 15px; } 
+      .brand h1 { font-size: 36px; } 
+      .brand p { font-size: 14px; margin-bottom: 0; } 
+      .card { padding: 25px 21px; } 
+    } 
+  </style> 
+</head> 
+ 
+<body> 
+  <main class="layout"> 
+    <section class="brand"> 
+      <div class="logo">✦</div> 
+      <h1>Your people.<br>Your space.</h1> 
+      <p> 
+        Welcome to VibeChat. Find your people, join communities, 
+        share your moments, and make every conversation count. 
+      </p> 
+    </section> 
+ 
+    <section class="card"> 
+      <div class="tabs"> 
+        <button class="tab active" id="loginTab" 
+          type="button" onclick="setMode('login')">Log In</button> 
+ 
+        <button class="tab" id="signupTab" 
+          type="button" onclick="setMode('signup')">Sign Up</button> 
+      </div> 
+ 
+      <h2 id="heading">Welcome back!</h2> 
+      <p class="subtitle" id="subtitle"> 
+        Log in with your username and password. 
+      </p> 
+ 
+      <form id="authForm"> 
+        <div class="field" id="usernameField"> 
+          <label for="username">USERNAME</label> 
+          <input id="username" name="username" 
+            type="text" minlength="3" maxlength="24" 
+            pattern="[A-Za-z0-9_]+" 
+            placeholder="Enter your username" 
+            autocomplete="username" required> 
+        </div> 
+ 
+        <div class="field"> 
+          <label for="password">PASSWORD</label> 
+          <div class="password-wrapper">
+            <input id="password" name="password" 
+              type="password" minlength="8" maxlength="128" 
+              placeholder="Enter your password" 
+              autocomplete="current-password" required> 
+            <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
+              <!-- Eye Icon (Closed / Hidden state by default) -->
+              <svg id="eyeIcon" viewBox="0 0 24 24">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+              </svg>
+            </button>
           </div>
+        </div> 
+ 
+        <div id="birthdayField" hidden> 
+          <div class="field"> 
+            <label>DATE OF BIRTH</label> 
+ 
+            <div class="birthday"> 
+              <input id="day" type="number" min="1" max="31" 
+                placeholder="Day" aria-label="Birth day"> 
+ 
+              <select id="month" aria-label="Birth month"> 
+                <option value="">Month</option> 
+                <option value="1">January</option> 
+                <option value="2">February</option> 
+                <option value="3">March</option> 
+                <option value="4">April</option> 
+                <option value="5">May</option> 
+                <option value="6">June</option> 
+                <option value="7">July</option> 
+                <option value="8">August</option> 
+                <option value="9">September</option> 
+                <option value="10">October</option> 
+                <option value="11">November</option> 
+                <option value="12">December</option> 
+              </select> 
+ 
+              <input id="year" type="number" min="1900" 
+                placeholder="Year" aria-label="Birth year"> 
+            </div> 
+          </div> 
+ 
+          <p class="terms"> 
+            You must be older than 13 to create an account. 
+            Your birthday is used to check your eligibility. 
+          </p> 
+ 
+          <div class="field"> 
+            <label> 
+              <input id="acceptTerms" type="checkbox" 
+                style="width:auto; vertical-align:middle"> 
+              I agree to the Terms of Service. 
+            </label> 
+          </div> 
+        </div> 
+ 
+        <button class="submit" id="submitButton" type="submit"> 
+          Log In 
+        </button> 
+ 
+        <div class="message" id="message" role="status" 
+          aria-live="polite"></div> 
+      </form> 
+ 
+      <div class="terms"> 
+        By using VibeChat, you agree to follow our rules and 
+        respect other members of the community. 
+      </div> 
+ 
+      <details class="terms-details"> 
+        <summary>Read our Terms of Service</summary> 
+        <p><strong>VibeChat Terms of Service</strong></p> 
+        <p><strong>1. Age requirement.</strong> You must be older than 13 
+          years old to create or use a VibeChat account. If you are 
+          13 or younger, you may not register or access the service.</p> 
+        <p><strong>2. Your account.</strong> Provide a username and 
+          password, keep your password private, and do not attempt to 
+          access another person's account without permission.</p> 
+        <p><strong>3. Respectful behaviour.</strong> Do not harass, 
+          threaten, bully, impersonate, or deliberately harm other users.</p> 
+        <p><strong>4. Illegal and harmful activity.</strong> Do not use 
+          VibeChat to break the law, distribute malicious software, or 
+          threaten the safety or privacy of others.</p> 
+        <p><strong>5. Your content.</strong> You are responsible for 
+          the messages and other content you share. Do not share 
+          content that violates another person's rights.</p> 
+        <p><strong>6. Account security.</strong> Do not share your 
+          password. We may suspend accounts that violate these terms 
+          once account management and moderation systems are implemented.</p> 
+        <p><strong>7. Privacy.</strong> Do not post your own or another 
+          person's sensitive personal information publicly. A production 
+          version of VibeChat must provide a proper privacy policy 
+          explaining its data collection, use, and retention.</p> 
+        <p><strong>8. Changes and availability.</strong> Features and 
+          these terms may change. The service may occasionally be 
+          unavailable.</p> 
+        <p><strong>9. Contact.</strong> Add an official contact address 
+          before launching VibeChat publicly so users can report 
+          problems and request help.</p> 
+        <p>By creating an account, you confirm that you meet the age 
+          requirement and agree to these terms.</p> 
+      </details> 
+ 
+      <div class="footer"> 
+        Made for your community. © 2026 VibeChat<br> 
+        <span class="creator">Made by Toastieofficial</span> 
+      </div> 
+    </section> 
+  </main> 
+ 
+  <script> 
+    let mode = "login"; 
+ 
+    const form = document.getElementById("authForm"); 
+    const message = document.getElementById("message"); 
+    const username = document.getElementById("username"); 
+    const password = document.getElementById("password"); 
+    const togglePasswordBtn = document.getElementById("togglePassword");
+    const eyeIcon = document.getElementById("eyeIcon");
+    const day = document.getElementById("day"); 
+    const month = document.getElementById("month"); 
+    const year = document.getElementById("year"); 
+    const acceptTerms = document.getElementById("acceptTerms"); 
+ 
+    // Toggle Password Visibility
+    const openEyePath = "M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z";
+    const closedEyePath = "M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.17c0-1.66-1.34-3-3-3l-.17.02z";
 
-          <p class="terms">
-            You must be older than 13 to create an account.
-            Your birthday is used to check your eligibility.
-          </p>
-
-          <div class="field">
-            <label>
-              <input id="acceptTerms" type="checkbox"
-                style="width:auto; vertical-align:middle">
-              I agree to the Terms of Service.
-            </label>
-          </div>
-        </div>
-
-        <button class="submit" id="submitButton" type="submit">
-          Log In
-        </button>
-
-        <div class="message" id="message" role="status"
-          aria-live="polite"></div>
-      </form>
-
-      <div class="terms">
-        By using VibeChat, you agree to follow our rules and
-        respect other members of the community.
-      </div>
-
-      <details class="terms-details">
-        <summary>Read our Terms of Service</summary>
-        <p><strong>VibeChat Terms of Service</strong></p>
-        <p><strong>1. Age requirement.</strong> You must be older than 13
-          years old to create or use a VibeChat account. If you are
-          13 or younger, you may not register or access the service.</p>
-        <p><strong>2. Your account.</strong> Provide a username and
-          password, keep your password private, and do not attempt to
-          access another person's account without permission.</p>
-        <p><strong>3. Respectful behaviour.</strong> Do not harass,
-          threaten, bully, impersonate, or deliberately harm other users.</p>
-        <p><strong>4. Illegal and harmful activity.</strong> Do not use
-          VibeChat to break the law, distribute malicious software, or
-          threaten the safety or privacy of others.</p>
-        <p><strong>5. Your content.</strong> You are responsible for
-          the messages and other content you share. Do not share
-          content that violates another person's rights.</p>
-        <p><strong>6. Account security.</strong> Do not share your
-          password. We may suspend accounts that violate these terms
-          once account management and moderation systems are implemented.</p>
-        <p><strong>7. Privacy.</strong> Do not post your own or another
-          person's sensitive personal information publicly. A production
-          version of VibeChat must provide a proper privacy policy
-          explaining its data collection, use, and retention.</p>
-        <p><strong>8. Changes and availability.</strong> Features and
-          these terms may change. The service may occasionally be
-          unavailable.</p>
-        <p><strong>9. Contact.</strong> Add an official contact address
-          before launching VibeChat publicly so users can report
-          problems and request help.</p>
-        <p>By creating an account, you confirm that you meet the age
-          requirement and agree to these terms.</p>
-      </details>
-
-      <div class="footer">
-        Made for your community. © 2026 VibeChat<br>
-        <span class="creator">Made by Toastieofficial</span>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    let mode = "login";
-
-    const form = document.getElementById("authForm");
-    const message = document.getElementById("message");
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    const day = document.getElementById("day");
-    const month = document.getElementById("month");
-    const year = document.getElementById("year");
-    const acceptTerms = document.getElementById("acceptTerms");
-
-    function setMode(nextMode) {
-      mode = nextMode;
-      const signup = mode === "signup";
-
-      document.getElementById("loginTab")
-        .classList.toggle("active", !signup);
-      document.getElementById("signupTab")
-        .classList.toggle("active", signup);
-
-      document.getElementById("heading").textContent =
-        signup ? "Create your account" : "Welcome back!";
-
-      document.getElementById("subtitle").textContent =
-        signup
-          ? "Choose a username and password to join VibeChat."
-          : "Log in with your username and password.";
-
-      document.getElementById("birthdayField").hidden = !signup;
-
-      day.required = signup;
-      month.required = signup;
-      year.required = signup;
-      acceptTerms.required = signup;
-
-      password.autocomplete = signup ? "new-password" : "current-password";
-      document.getElementById("submitButton").textContent =
-        signup ? "Create Account" : "Log In";
-
-      message.style.display = "none";
-      message.textContent = "";
-    }
-
-    function showMessage(text) {
-      message.textContent = text;
-      message.style.display = "block";
-    }
-
-    function isOlderThan13(d, m, y) {
-      const today = new Date();
-      const birth = new Date(y, m - 1, d);
-
-      // Reject impossible dates, including dates such as 31 February.
-      if (
-        birth.getFullYear() !== y ||
-        birth.getMonth() !== m - 1 ||
-        birth.getDate() !== d ||
-        birth > today
-      ) {
-        return false;
-      }
-
-      let age = today.getFullYear() - y;
-
-      const birthdayHasNotOccurred =
-        today.getMonth() < m - 1 ||
-        (today.getMonth() === m - 1 && today.getDate() < d);
-
-      if (birthdayHasNotOccurred) age--;
-
-      return age > 13;
-    }
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      // Required fields are checked by the browser.
-      if (!form.reportValidity()) return;
-
-      if (mode === "signup") {
-        const d = Number(day.value);
-        const m = Number(month.value);
-        const y = Number(year.value);
-
-        if (!isOlderThan13(d, m, y)) {
-          showMessage(
-            "You must be older than 13 to use VibeChat. " +
-            "Check your date of birth and try again."
-          );
-          return;
-        }
-
-        if (!acceptTerms.checked) {
-          showMessage("You must agree to the Terms of Service.");
-          return;
-        }
-
-        showMessage(
-          "Your details passed the form checks! Real account " +
-          "creation is not connected yet. An authentication " +
-          "service must be set up before you can create an account."
-        );
-      } else {
-        showMessage(
-          "Please connect a secure authentication service to " +
-          "verify your username and password. This demo does not " +
-          "sign users in or grant access to accounts."
-        );
-      }
+    togglePasswordBtn.addEventListener("click", function() {
+      const isPassword = password.type === "password";
+      password.type = isPassword ? "text" : "password";
+      
+      // Swap the SVG path between visible and hidden eye icons
+      eyeIcon.querySelector("path").setAttribute("d", isPassword ? closedEyePath : openEyePath);
     });
-  </script>
-</body>
+
+    function setMode(nextMode) { 
+      mode = nextMode; 
+      const signup = mode === "signup"; 
+ 
+      document.getElementById("loginTab") 
+        .classList.toggle("active", !signup); 
+      document.getElementById("signupTab") 
+        .classList.toggle("active", signup); 
+ 
+      document.getElementById("heading").textContent = 
+        signup ? "Create your account" : "Welcome back!"; 
+ 
+      document.getElementById("subtitle").textContent = 
+        signup 
+          ? "Choose a username and password to join VibeChat." 
+          : "Log in with your username and password."; 
+ 
+      document.getElementById("birthdayField").hidden = !signup; 
+ 
+      day.required = signup; 
+      month.required = signup; 
+      year.required = signup; 
+      acceptTerms.required = signup; 
+ 
+      password.autocomplete = signup ? "new-password" : "current-password"; 
+      document.getElementById("submitButton").textContent = 
+        signup ? "Create Account" : "Log In"; 
+ 
+      message.style.display = "none"; 
+      message.textContent = ""; 
+    } 
+ 
+    function showMessage(text) { 
+      message.textContent = text; 
+      message.style.display = "block"; 
+    } 
+ 
+    function isOlderThan13(d, m, y) { 
+      const today = new Date(); 
+      const birth = new Date(y, m - 1, d); 
+ 
+      // Reject impossible dates, including dates such as 31 February. 
+      if ( 
+        birth.getFullYear() !== y || 
+        birth.getMonth() !== m - 1 || 
+        birth.getDate() !== d || 
+        birth > today 
+      ) { 
+        return false; 
+      } 
+ 
+      let age = today.getFullYear() - y; 
+ 
+      const birthdayHasNotOccurred = 
+        today.getMonth() < m - 1 || 
+        (today.getMonth() === m - 1 && today.getDate() < d); 
+ 
+      if (birthdayHasNotOccurred) age--; 
+ 
+      return age > 13; 
+    } 
+ 
+    form.addEventListener("submit", function(event) { 
+      event.preventDefault(); 
+ 
+      // Required fields are checked by the browser. 
+      if (!form.reportValidity()) return; 
+ 
+      if (mode === "signup") { 
+        const d = Number(day.value); 
+        const m = Number(month.value); 
+        const y = Number(year.value); 
+ 
+        if (!isOlderThan13(d, m, y)) { 
+          showMessage( 
+            "You must be older than 13 to use VibeChat. " + 
+            "Check your date of birth and try again." 
+          ); 
+          return; 
+        } 
+ 
+        if (!acceptTerms.checked) { 
+          showMessage("You must agree to the Terms of Service."); 
+          return; 
+        } 
+ 
+        showMessage( 
+          "Your details passed the form checks! Real account " + 
+          "creation is not connected yet. An authentication " + 
+          "service must be set up before you can create an account." 
+        ); 
+      } else { 
+        showMessage( 
+          "Please connect a secure authentication service to " + 
+          "verify your username and password. This demo does not " + 
+          "sign users in or grant access to accounts." 
+        ); 
+      } 
+    }); 
+  </script> 
+</body> 
 </html>
