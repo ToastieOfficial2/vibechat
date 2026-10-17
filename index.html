@@ -8,20 +8,45 @@
   <style> 
     * { box-sizing: border-box; } 
  
+    :root {
+      --bg-dark: #111218;
+      --card-bg: #1c1d27;
+      --input-bg: #13141c;
+      --accent: #5865f2;
+      --accent-hover: #4752c4;
+      --text-main: #f5f5fa;
+      --text-muted: #a5a8ba;
+      --border-color: #343544;
+      --sidebar-bg: #12131a;
+      --chat-bg: #181922;
+      --user-tag: #818bff;
+    }
+
     body { 
       margin: 0; 
       min-height: 100vh; 
-      padding: 25px; 
-      display: grid; 
-      place-items: center; 
       font-family: Arial, sans-serif; 
-      color: #f5f5fa; 
+      color: var(--text-main); 
       background: 
         radial-gradient(ellipse at 15% 15%, #29245a, transparent 45%), 
         radial-gradient(ellipse at 85% 85%, #172d4c, transparent 45%), 
-        #111218; 
+        var(--bg-dark); 
+      overflow-x: hidden;
     } 
- 
+
+    /* Helper Utilities */
+    [hidden] { display: none !important; }
+
+    /* =========================================================
+       1. AUTHENTICATION SECTION 
+       ========================================================= */
+    #authContainer {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 25px;
+    }
+
     .layout { 
       width: 100%; 
       max-width: 960px; 
@@ -38,10 +63,11 @@
       height: 58px; 
       display: grid; 
       place-items: center; 
-      background: #5865f2; 
+      background: var(--accent); 
       border-radius: 17px; 
       font-size: 28px; 
       margin-bottom: 25px; 
+      box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
     } 
  
     h1 { 
@@ -52,15 +78,15 @@
     } 
  
     .brand p { 
-      color: #a5a8ba; 
+      color: var(--text-muted); 
       line-height: 1.8; 
     } 
  
     .card { 
       padding: 32px; 
-      border: 1px solid #343544; 
+      border: 1px solid var(--border-color); 
       border-radius: 22px; 
-      background: #1c1d27; 
+      background: var(--card-bg); 
       box-shadow: 0 25px 80px #0005; 
     } 
  
@@ -69,7 +95,7 @@
       grid-template-columns: 1fr 1fr; 
       padding: 5px; 
       gap: 5px; 
-      background: #13141c; 
+      background: var(--input-bg); 
       border-radius: 12px; 
       margin-bottom: 28px; 
     } 
@@ -80,20 +106,22 @@
       padding: 12px; 
       border: 0; 
       border-radius: 9px; 
-      color: #a5a8ba; 
+      color: var(--text-muted); 
       background: transparent; 
       cursor: pointer; 
+      font-weight: bold;
+      transition: all 0.2s;
     } 
  
     .tab.active { 
       color: white; 
-      background: #5865f2; 
+      background: var(--accent); 
     } 
  
     h2 { margin: 0 0 9px; font-size: 26px; } 
  
     .subtitle { 
-      color: #a5a8ba; 
+      color: var(--text-muted); 
       font-size: 14px; 
       line-height: 1.6; 
       margin: 0 0 25px; 
@@ -106,6 +134,7 @@
       font-size: 12px; 
       font-weight: bold; 
       margin-bottom: 8px; 
+      color: #c5c8de;
     } 
  
     input, select { 
@@ -114,10 +143,11 @@
       padding: 13px; 
       border: 1px solid #383948; 
       border-radius: 9px; 
-      background: #13141c; 
+      background: var(--input-bg); 
       color: white; 
       font-size: 14px; 
       outline: none; 
+      transition: border-color 0.2s;
     } 
  
     input:focus, select:focus { 
@@ -126,7 +156,6 @@
  
     input::placeholder { color: #777b8e; } 
 
-    /* Password Input Container & Eye Toggle Styling */
     .password-wrapper {
       position: relative;
       display: flex;
@@ -142,13 +171,12 @@
       right: 12px;
       background: none;
       border: none;
-      color: #a5a8ba;
+      color: var(--text-muted);
       cursor: pointer;
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.2s ease;
     }
 
     .toggle-password:hover {
@@ -172,15 +200,16 @@
       padding: 15px; 
       border: 0; 
       border-radius: 10px; 
-      background: #5865f2; 
+      background: var(--accent); 
       color: white; 
       font-size: 15px; 
       font-weight: bold; 
       cursor: pointer; 
       margin-top: 5px; 
+      transition: background 0.2s;
     } 
  
-    .submit:hover { background: #4752c4; } 
+    .submit:hover { background: var(--accent-hover); } 
  
     .message { 
       display: none; 
@@ -205,7 +234,7 @@
  
     .terms-details { 
       margin-top: 12px; 
-      border-top: 1px solid #343544; 
+      border-top: 1px solid var(--border-color); 
       padding-top: 12px; 
     } 
  
@@ -215,8 +244,7 @@
       font-size: 12px; 
     } 
  
-    .terms-details p, 
-    .terms-details li { 
+    .terms-details p { 
       color: #b4b6c5; 
       font-size: 12px; 
       line-height: 1.7; 
@@ -233,10 +261,391 @@
     .creator { 
       color: #c0c5ff; 
       font-weight: bold; 
-    } 
- 
-    [hidden] { display: none !important; } 
- 
+    }
+
+    /* =========================================================
+       2. LOADING SCREEN SECTION
+       ========================================================= */
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: #0d0e12;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .brand-loader-title {
+      font-size: clamp(32px, 6vw, 54px);
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #a4adff, #5865f2, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 15px rgba(88, 101, 242, 0.4)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 35px rgba(129, 139, 255, 0.8)); transform: scale(1.03); }
+    }
+
+    .loader-ring {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(88, 101, 242, 0.15);
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .progress-bar-container {
+      width: 260px;
+      height: 6px;
+      background: #1c1d27;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #2e3040;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #5865f2, #818bff);
+      border-radius: 10px;
+      transition: width 0.1s linear;
+    }
+
+    .loader-subtitle {
+      margin-top: 15px;
+      color: var(--text-muted);
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    /* =========================================================
+       3. CHAT ROOM APP INTERFACE
+       ========================================================= */
+    #chatApp {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      background: var(--chat-bg);
+      overflow: hidden;
+    }
+
+    /* Channels Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid #1f212d;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .server-header {
+      padding: 18px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid #1f212d;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .channel-list {
+      flex: 1;
+      padding: 15px 10px;
+      overflow-y: auto;
+    }
+
+    .channel-category {
+      font-size: 11px;
+      font-weight: bold;
+      color: #6a6d85;
+      text-transform: uppercase;
+      padding: 8px 10px 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .channel-item {
+      display: flex;
+      align-items: center;
+      padding: 9px 12px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-bottom: 2px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .channel-item:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-main);
+    }
+
+    .channel-item.active {
+      background: rgba(88, 101, 242, 0.2);
+      color: #ffffff;
+    }
+
+    .channel-item span {
+      margin-right: 8px;
+      font-size: 18px;
+      color: #6a6d85;
+    }
+
+    .user-profile-bar {
+      padding: 12px 14px;
+      background: #0d0e14;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid #1f212d;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      font-weight: bold;
+      font-size: 15px;
+      color: white;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+
+    .user-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .user-info .name {
+      font-size: 13px;
+      font-weight: bold;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-info .status {
+      font-size: 11px;
+      color: #57f287;
+    }
+
+    /* Main Chat View */
+    .chat-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: var(--chat-bg);
+    }
+
+    .chat-header {
+      height: 56px;
+      padding: 0 20px;
+      border-bottom: 1px solid #1f212d;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      background: var(--chat-bg);
+      z-index: 10;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .message-card {
+      display: flex;
+      gap: 14px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message-content {
+      flex: 1;
+    }
+
+    .message-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .author-name {
+      font-weight: bold;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .timestamp {
+      font-size: 11px;
+      color: #6a6d85;
+    }
+
+    .message-text {
+      font-size: 14px;
+      color: #dcddde;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .media-attachment {
+      margin-top: 8px;
+      max-width: 380px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: #000;
+    }
+
+    .media-attachment img, 
+    .media-attachment video {
+      width: 100%;
+      max-height: 300px;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* Bottom Input Container */
+    .chat-input-area {
+      padding: 0 20px 20px 20px;
+      background: transparent;
+    }
+
+    .chat-input-box {
+      background: #232533;
+      border-radius: 12px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #2e3044;
+    }
+
+    .attach-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #34374c;
+      color: #b9bbbe;
+      border: 0;
+      font-size: 20px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .attach-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .chat-input-box input[type="text"] {
+      border: none;
+      background: transparent;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+
+    .chat-input-box input[type="text"]:focus {
+      border-color: transparent;
+    }
+
+    .send-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .send-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Right Sidebar - Online List */
+    .members-sidebar {
+      width: 200px;
+      background: var(--sidebar-bg);
+      border-left: 1px solid #1f212d;
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .members-title {
+      font-size: 11px;
+      font-weight: bold;
+      color: #6a6d85;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .member-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .member-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #34374c;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 850px) {
+      .members-sidebar { display: none; }
+    }
+
     @media (max-width: 760px) { 
       .layout { 
         grid-template-columns: 1fr; 
@@ -249,181 +658,296 @@
       .brand h1 { font-size: 36px; } 
       .brand p { font-size: 14px; margin-bottom: 0; } 
       .card { padding: 25px 21px; } 
+
+      .sidebar { width: 70px; }
+      .channel-category, .channel-item span:nth-child(2), .user-info { display: none; }
+      .channel-item { justify-content: center; }
+      .channel-item span { margin-right: 0; }
     } 
   </style> 
 </head> 
  
 <body> 
-  <main class="layout"> 
-    <section class="brand"> 
-      <div class="logo">✦</div> 
-      <h1>Your people.<br>Your space.</h1> 
-      <p> 
-        Welcome to VibeChat. Find your people, join communities, 
-        share your moments, and make every conversation count. 
-      </p> 
-    </section> 
- 
-    <section class="card"> 
-      <div class="tabs"> 
-        <button class="tab active" id="loginTab" 
-          type="button" onclick="setMode('login')">Log In</button> 
- 
-        <button class="tab" id="signupTab" 
-          type="button" onclick="setMode('signup')">Sign Up</button> 
-      </div> 
- 
-      <h2 id="heading">Welcome back!</h2> 
-      <p class="subtitle" id="subtitle"> 
-        Log in with your username and password. 
-      </p> 
- 
-      <form id="authForm"> 
-        <div class="field" id="usernameField"> 
-          <label for="username">USERNAME</label> 
-          <input id="username" name="username" 
-            type="text" minlength="3" maxlength="24" 
-            pattern="[A-Za-z0-9_]+" 
-            placeholder="Enter your username" 
-            autocomplete="username" required> 
+
+  <!-- =========================================================
+       1. AUTHENTICATION LANDING SCREEN
+       ========================================================= -->
+  <div id="authContainer">
+    <main class="layout"> 
+      <section class="brand"> 
+        <div class="logo">✦</div> 
+        <h1>Your people.<br>Your space.</h1> 
+        <p> 
+          Welcome to VibeChat. Find your people, join communities, 
+          share your moments, and make every conversation count. 
+        </p> 
+      </section> 
+   
+      <section class="card"> 
+        <div class="tabs"> 
+          <button class="tab active" id="loginTab" 
+            type="button" onclick="setMode('login')">Log In</button> 
+   
+          <button class="tab" id="signupTab" 
+            type="button" onclick="setMode('signup')">Sign Up</button> 
         </div> 
- 
-        <div class="field"> 
-          <label for="password">PASSWORD</label> 
-          <div class="password-wrapper">
-            <input id="password" name="password" 
-              type="password" minlength="8" maxlength="128" 
-              placeholder="Enter your password" 
-              autocomplete="current-password" required> 
-            <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
-              <!-- Eye Icon (Closed / Hidden state by default) -->
-              <svg id="eyeIcon" viewBox="0 0 24 24">
-                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-              </svg>
-            </button>
-          </div>
-        </div> 
- 
-        <div id="birthdayField" hidden> 
+   
+        <h2 id="heading">Welcome back!</h2> 
+        <p class="subtitle" id="subtitle"> 
+          Log in with your username and password. 
+        </p> 
+   
+        <form id="authForm"> 
+          <div class="field" id="usernameField"> 
+            <label for="username">USERNAME</label> 
+            <input id="username" name="username" 
+              type="text" minlength="3" maxlength="24" 
+              pattern="[A-Za-z0-9_]+" 
+              placeholder="Enter your username" 
+              autocomplete="username" required> 
+          </div> 
+   
           <div class="field"> 
-            <label>DATE OF BIRTH</label> 
- 
-            <div class="birthday"> 
-              <input id="day" type="number" min="1" max="31" 
-                placeholder="Day" aria-label="Birth day"> 
- 
-              <select id="month" aria-label="Birth month"> 
-                <option value="">Month</option> 
-                <option value="1">January</option> 
-                <option value="2">February</option> 
-                <option value="3">March</option> 
-                <option value="4">April</option> 
-                <option value="5">May</option> 
-                <option value="6">June</option> 
-                <option value="7">July</option> 
-                <option value="8">August</option> 
-                <option value="9">September</option> 
-                <option value="10">October</option> 
-                <option value="11">November</option> 
-                <option value="12">December</option> 
-              </select> 
- 
-              <input id="year" type="number" min="1900" 
-                placeholder="Year" aria-label="Birth year"> 
+            <label for="password">PASSWORD</label> 
+            <div class="password-wrapper">
+              <input id="password" name="password" 
+                type="password" minlength="8" maxlength="128" 
+                placeholder="Enter your password" 
+                autocomplete="current-password" required> 
+              <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
+                <svg id="eyeIcon" viewBox="0 0 24 24">
+                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+              </button>
+            </div>
+          </div> 
+   
+          <div id="birthdayField" hidden> 
+            <div class="field"> 
+              <label>DATE OF BIRTH</label> 
+   
+              <div class="birthday"> 
+                <input id="day" type="number" min="1" max="31" 
+                  placeholder="Day" aria-label="Birth day"> 
+   
+                <select id="month" aria-label="Birth month"> 
+                  <option value="">Month</option> 
+                  <option value="1">January</option> 
+                  <option value="2">February</option> 
+                  <option value="3">March</option> 
+                  <option value="4">April</option> 
+                  <option value="5">May</option> 
+                  <option value="6">June</option> 
+                  <option value="7">July</option> 
+                  <option value="8">August</option> 
+                  <option value="9">September</option> 
+                  <option value="10">October</option> 
+                  <option value="11">November</option> 
+                  <option value="12">December</option> 
+                </select> 
+   
+                <input id="year" type="number" min="1900" 
+                  placeholder="Year" aria-label="Birth year"> 
+              </div> 
+            </div> 
+   
+            <p class="terms"> 
+              You must be older than 13 to create an account. 
+              Your birthday is used to check your eligibility. 
+            </p> 
+   
+            <div class="field"> 
+              <label> 
+                <input id="acceptTerms" type="checkbox" 
+                  style="width:auto; vertical-align:middle"> 
+                I agree to the Terms of Service. 
+              </label> 
             </div> 
           </div> 
- 
-          <p class="terms"> 
-            You must be older than 13 to create an account. 
-            Your birthday is used to check your eligibility. 
-          </p> 
- 
-          <div class="field"> 
-            <label> 
-              <input id="acceptTerms" type="checkbox" 
-                style="width:auto; vertical-align:middle"> 
-              I agree to the Terms of Service. 
-            </label> 
-          </div> 
+   
+          <button class="submit" id="submitButton" type="submit"> 
+            Log In 
+          </button> 
+   
+          <div class="message" id="message" role="status" 
+            aria-live="polite"></div> 
+        </form> 
+   
+        <div class="terms"> 
+          By using VibeChat, you agree to follow our rules and 
+          respect other members of the community. 
         </div> 
- 
-        <button class="submit" id="submitButton" type="submit"> 
-          Log In 
-        </button> 
- 
-        <div class="message" id="message" role="status" 
-          aria-live="polite"></div> 
-      </form> 
- 
-      <div class="terms"> 
-        By using VibeChat, you agree to follow our rules and 
-        respect other members of the community. 
-      </div> 
- 
-      <details class="terms-details"> 
-        <summary>Read our Terms of Service</summary> 
-        <p><strong>VibeChat Terms of Service</strong></p> 
-        <p><strong>1. Age requirement.</strong> You must be older than 13 
-          years old to create or use a VibeChat account. If you are 
-          13 or younger, you may not register or access the service.</p> 
-        <p><strong>2. Your account.</strong> Provide a username and 
-          password, keep your password private, and do not attempt to 
-          access another person's account without permission.</p> 
-        <p><strong>3. Respectful behaviour.</strong> Do not harass, 
-          threaten, bully, impersonate, or deliberately harm other users.</p> 
-        <p><strong>4. Illegal and harmful activity.</strong> Do not use 
-          VibeChat to break the law, distribute malicious software, or 
-          threaten the safety or privacy of others.</p> 
-        <p><strong>5. Your content.</strong> You are responsible for 
-          the messages and other content you share. Do not share 
-          content that violates another person's rights.</p> 
-        <p><strong>6. Account security.</strong> Do not share your 
-          password. We may suspend accounts that violate these terms 
-          once account management and moderation systems are implemented.</p> 
-        <p><strong>7. Privacy.</strong> Do not post your own or another 
-          person's sensitive personal information publicly. A production 
-          version of VibeChat must provide a proper privacy policy 
-          explaining its data collection, use, and retention.</p> 
-        <p><strong>8. Changes and availability.</strong> Features and 
-          these terms may change. The service may occasionally be 
-          unavailable.</p> 
-        <p><strong>9. Contact.</strong> Add an official contact address 
-          before launching VibeChat publicly so users can report 
-          problems and request help.</p> 
-        <p>By creating an account, you confirm that you meet the age 
-          requirement and agree to these terms.</p> 
-      </details> 
- 
-      <div class="footer"> 
-        Made for your community. © 2026 VibeChat<br> 
-        <span class="creator">Made by Toastieofficial</span> 
-      </div> 
-    </section> 
-  </main> 
- 
+   
+        <details class="terms-details"> 
+          <summary>Read our Terms of Service</summary> 
+          <p><strong>VibeChat Terms of Service</strong></p> 
+          <p><strong>1. Age requirement.</strong> You must be older than 13 years old to create or use a VibeChat account.</p> 
+          <p><strong>2. Your account.</strong> Provide a username and password, keep your password private.</p> 
+          <p><strong>3. Respectful behaviour.</strong> Do not harass, threaten, bully, or impersonate other users.</p> 
+        </details> 
+   
+        <div class="footer"> 
+          Made for your community. © 2026 VibeChat<br> 
+          <span class="creator">Made by Toastieofficial</span> 
+        </div> 
+      </section> 
+    </main> 
+  </div>
+
+  <!-- =========================================================
+       2. SPLASH LOADING SCREEN (10 Seconds)
+       ========================================================= -->
+  <div id="loadingScreen" hidden>
+    <div class="brand-loader-title">ToastieOfficial</div>
+    <div class="loader-ring"></div>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="loader-subtitle" id="loaderStatus">Establishing secure connection...</div>
+  </div>
+
+  <!-- =========================================================
+       3. DISCORD-STYLE CHAT ROOM APPLICATION
+       ========================================================= -->
+  <div id="chatApp" hidden>
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar">
+      <div class="server-header">
+        <span>VibeChat Hub</span>
+        <span style="font-size:12px; color:#57f287;">● Online</span>
+      </div>
+
+      <div class="channel-list">
+        <div class="channel-category">Text Channels</div>
+        <div class="channel-item active"><span>#</span>general</div>
+        <div class="channel-item"><span>#</span>lounge</div>
+        <div class="channel-item"><span>#</span>memes</div>
+        <div class="channel-item"><span>#</span>gaming</div>
+      </div>
+
+      <!-- Current Logged In User Profile -->
+      <div class="user-profile-bar">
+        <div class="avatar" id="userAvatarDisplay">U</div>
+        <div class="user-info">
+          <div class="name" id="userNameDisplay">Username</div>
+          <div class="status">Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Window -->
+    <main class="chat-main">
+      <header class="chat-header">
+        <span style="color: #6a6d85; font-size:22px;">#</span>
+        <span id="currentChannelName">general</span>
+      </header>
+
+      <!-- Message History Container -->
+      <div class="chat-messages" id="chatMessages">
+        <!-- Default Welcome Messages -->
+        <div class="message-card">
+          <div class="avatar" style="background:#ed4245;">T</div>
+          <div class="message-content">
+            <div class="message-header">
+              <span class="author-name">ToastieBot</span>
+              <span class="timestamp">Today at 12:00 PM</span>
+            </div>
+            <div class="message-text">Welcome to VibeChat! Feel free to chat, upload photos, or share videos! 🚀</div>
+          </div>
+        </div>
+
+        <div class="message-card">
+          <div class="avatar" style="background:#fee75c; color:#000;">A</div>
+          <div class="message-content">
+            <div class="message-header">
+              <span class="author-name">Alex</span>
+              <span class="timestamp">Today at 12:02 PM</span>
+            </div>
+            <div class="message-text">Hey everyone! Loving the vibe here! ✨</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Floating Bottom Input -->
+      <div class="chat-input-area">
+        <div class="chat-input-box">
+          <!-- Hidden File Input for Gallery Images/Videos -->
+          <input type="file" id="mediaUpload" accept="image/*,video/*" hidden>
+          
+          <!-- Attachment Plus Button -->
+          <button type="button" class="attach-btn" id="attachBtn" title="Attach Image or Video">+</button>
+          
+          <!-- Message Input -->
+          <input type="text" id="messageInput" placeholder="Message #general..." autocomplete="off">
+          
+          <!-- Send Button -->
+          <button type="button" class="send-btn" id="sendBtn">Send</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Members Sidebar -->
+    <aside class="members-sidebar">
+      <div class="members-title">Online Members — 3</div>
+      
+      <div class="member-item">
+        <div class="member-avatar" style="background:#5865f2;" id="memberSelfAvatar">U</div>
+        <span id="memberSelfName" style="color:#fff; font-weight:bold;">You</span>
+      </div>
+
+      <div class="member-item">
+        <div class="member-avatar" style="background:#ed4245;">T</div>
+        <span>ToastieBot</span>
+      </div>
+
+      <div class="member-item">
+        <div class="member-avatar" style="background:#fee75c; color:#000;">A</div>
+        <span>Alex</span>
+      </div>
+    </aside>
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT LOGIC
+       ========================================================= -->
   <script> 
     let mode = "login"; 
- 
+    let currentUser = { username: "Guest" };
+
+    // Elements
+    const authContainer = document.getElementById("authContainer");
+    const loadingScreen = document.getElementById("loadingScreen");
+    const chatApp = document.getElementById("chatApp");
+    
     const form = document.getElementById("authForm"); 
     const message = document.getElementById("message"); 
-    const username = document.getElementById("username"); 
-    const password = document.getElementById("password"); 
+    const usernameInput = document.getElementById("username"); 
+    const passwordInput = document.getElementById("password"); 
     const togglePasswordBtn = document.getElementById("togglePassword");
     const eyeIcon = document.getElementById("eyeIcon");
     const day = document.getElementById("day"); 
     const month = document.getElementById("month"); 
     const year = document.getElementById("year"); 
-    const acceptTerms = document.getElementById("acceptTerms"); 
- 
-    // Toggle Password Visibility
+    const acceptTerms = document.getElementById("acceptTerms");
+
+    // Chat Elements
+    const chatMessages = document.getElementById("chatMessages");
+    const messageInput = document.getElementById("messageInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const attachBtn = document.getElementById("attachBtn");
+    const mediaUpload = document.getElementById("mediaUpload");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+    const userAvatarDisplay = document.getElementById("userAvatarDisplay");
+    const memberSelfName = document.getElementById("memberSelfName");
+    const memberSelfAvatar = document.getElementById("memberSelfAvatar");
+
+    // Toggle Password Eye Icon
     const openEyePath = "M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z";
     const closedEyePath = "M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.17c0-1.66-1.34-3-3-3l-.17.02z";
 
     togglePasswordBtn.addEventListener("click", function() {
-      const isPassword = password.type === "password";
-      password.type = isPassword ? "text" : "password";
-      
-      // Swap the SVG path between visible and hidden eye icons
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
       eyeIcon.querySelector("path").setAttribute("d", isPassword ? closedEyePath : openEyePath);
     });
 
@@ -431,18 +955,11 @@
       mode = nextMode; 
       const signup = mode === "signup"; 
  
-      document.getElementById("loginTab") 
-        .classList.toggle("active", !signup); 
-      document.getElementById("signupTab") 
-        .classList.toggle("active", signup); 
+      document.getElementById("loginTab").classList.toggle("active", !signup); 
+      document.getElementById("signupTab").classList.toggle("active", signup); 
  
-      document.getElementById("heading").textContent = 
-        signup ? "Create your account" : "Welcome back!"; 
- 
-      document.getElementById("subtitle").textContent = 
-        signup 
-          ? "Choose a username and password to join VibeChat." 
-          : "Log in with your username and password."; 
+      document.getElementById("heading").textContent = signup ? "Create your account" : "Welcome back!"; 
+      document.getElementById("subtitle").textContent = signup ? "Choose a username and password to join VibeChat." : "Log in with your username and password."; 
  
       document.getElementById("birthdayField").hidden = !signup; 
  
@@ -451,9 +968,8 @@
       year.required = signup; 
       acceptTerms.required = signup; 
  
-      password.autocomplete = signup ? "new-password" : "current-password"; 
-      document.getElementById("submitButton").textContent = 
-        signup ? "Create Account" : "Log In"; 
+      passwordInput.autocomplete = signup ? "new-password" : "current-password"; 
+      document.getElementById("submitButton").textContent = signup ? "Create Account" : "Log In"; 
  
       message.style.display = "none"; 
       message.textContent = ""; 
@@ -467,32 +983,16 @@
     function isOlderThan13(d, m, y) { 
       const today = new Date(); 
       const birth = new Date(y, m - 1, d); 
- 
-      // Reject impossible dates, including dates such as 31 February. 
-      if ( 
-        birth.getFullYear() !== y || 
-        birth.getMonth() !== m - 1 || 
-        birth.getDate() !== d || 
-        birth > today 
-      ) { 
-        return false; 
-      } 
- 
+      if (birth.getFullYear() !== y || birth.getMonth() !== m - 1 || birth.getDate() !== d || birth > today) return false; 
       let age = today.getFullYear() - y; 
- 
-      const birthdayHasNotOccurred = 
-        today.getMonth() < m - 1 || 
-        (today.getMonth() === m - 1 && today.getDate() < d); 
- 
+      const birthdayHasNotOccurred = today.getMonth() < m - 1 || (today.getMonth() === m - 1 && today.getDate() < d); 
       if (birthdayHasNotOccurred) age--; 
- 
       return age > 13; 
     } 
- 
+
+    // Submit Auth Form -> Start Loading Sequence
     form.addEventListener("submit", function(event) { 
       event.preventDefault(); 
- 
-      // Required fields are checked by the browser. 
       if (!form.reportValidity()) return; 
  
       if (mode === "signup") { 
@@ -501,31 +1001,152 @@
         const y = Number(year.value); 
  
         if (!isOlderThan13(d, m, y)) { 
-          showMessage( 
-            "You must be older than 13 to use VibeChat. " + 
-            "Check your date of birth and try again." 
-          ); 
+          showMessage("You must be older than 13 to use VibeChat."); 
           return; 
         } 
- 
         if (!acceptTerms.checked) { 
           showMessage("You must agree to the Terms of Service."); 
           return; 
         } 
- 
-        showMessage( 
-          "Your details passed the form checks! Real account " + 
-          "creation is not connected yet. An authentication " + 
-          "service must be set up before you can create an account." 
-        ); 
-      } else { 
-        showMessage( 
-          "Please connect a secure authentication service to " + 
-          "verify your username and password. This demo does not " + 
-          "sign users in or grant access to accounts." 
-        ); 
-      } 
-    }); 
+      }
+
+      currentUser.username = usernameInput.value;
+      startLoadingSequence();
+    });
+
+    // 10-Second Loading Screen Sequence
+    function startLoadingSequence() {
+      authContainer.hidden = true;
+      loadingScreen.hidden = false;
+
+      const fill = document.getElementById("progressFill");
+      const statusText = document.getElementById("loaderStatus");
+      
+      let progress = 0;
+      const totalDuration = 10000; // 10 seconds
+      const intervalTime = 100;
+      const step = (intervalTime / totalDuration) * 100;
+
+      const statuses = [
+        "Connecting to servers...",
+        "Loading channels & messages...",
+        "Syncing ToastieOfficial preferences...",
+        "Preparing your workspace...",
+        "Almost ready..."
+      ];
+
+      const progressInterval = setInterval(() => {
+        progress += step;
+        if (progress > 100) progress = 100;
+        fill.style.width = progress + "%";
+
+        // Update status text based on progress
+        const statusIdx = Math.min(Math.floor((progress / 100) * statuses.length), statuses.length - 1);
+        statusText.textContent = statuses[statusIdx];
+
+        if (progress >= 100) {
+          clearInterval(progressInterval);
+          setTimeout(enterChatRoom, 500);
+        }
+      }, intervalTime);
+    }
+
+    // Transition to Main Chat Room
+    function enterChatRoom() {
+      loadingScreen.hidden = true;
+      chatApp.hidden = false;
+
+      // Update User Info Displays
+      const firstInitial = currentUser.username.charAt(0).toUpperCase();
+      userNameDisplay.textContent = currentUser.username;
+      userAvatarDisplay.textContent = firstInitial;
+      memberSelfName.textContent = currentUser.username;
+      memberSelfAvatar.textContent = firstInitial;
+
+      messageInput.focus();
+    }
+
+    // Attachment Button Click -> Trigger Hidden File Selector
+    attachBtn.addEventListener("click", () => {
+      mediaUpload.click();
+    });
+
+    // Handle Image/Video Upload from Local Gallery
+    mediaUpload.addEventListener("change", function() {
+      const file = this.files[0];
+      if (!file) return;
+
+      const fileURL = URL.createObjectURL(file);
+      const isVideo = file.type.startsWith("video/");
+
+      addMessageToChat({
+        author: currentUser.username,
+        avatar: currentUser.username.charAt(0).toUpperCase(),
+        text: file.name,
+        mediaUrl: fileURL,
+        isVideo: isVideo
+      });
+
+      this.value = ""; // Reset
+    });
+
+    // Send Message Event
+    function sendMessage() {
+      const text = messageInput.value.trim();
+      if (!text) return;
+
+      addMessageToChat({
+        author: currentUser.username,
+        avatar: currentUser.username.charAt(0).toUpperCase(),
+        text: text
+      });
+
+      messageInput.value = "";
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    messageInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    // Append Message Card to Live Feed
+    function addMessageToChat(data) {
+      const now = new Date();
+      const timeStr = `Today at ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')} ${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+
+      const card = document.createElement("div");
+      card.className = "message-card";
+
+      let mediaHTML = "";
+      if (data.mediaUrl) {
+        if (data.isVideo) {
+          mediaHTML = `<div class="media-attachment"><video src="${data.mediaUrl}" controls></video></div>`;
+        } else {
+          mediaHTML = `<div class="media-attachment"><img src="${data.mediaUrl}" alt="Attachment"></div>`;
+        }
+      }
+
+      card.innerHTML = `
+        <div class="avatar">${data.avatar}</div>
+        <div class="message-content">
+          <div class="message-header">
+            <span class="author-name">${data.author}</span>
+            <span class="timestamp">${timeStr}</span>
+          </div>
+          <div class="message-text">${escapeHTML(data.text)}</div>
+          ${mediaHTML}
+        </div>
+      `;
+
+      chatMessages.appendChild(card);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
   </script> 
 </body> 
 </html>
