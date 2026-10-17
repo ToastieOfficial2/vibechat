@@ -19,13 +19,16 @@
       --border-color: #343544;
       --sidebar-bg: #12131a;
       --chat-bg: #181922;
-      --user-tag: #818bff;
+      --owner-gold: #f1c40f;
+      --owner-bg: rgba(241, 196, 15, 0.15);
+      --mention-bg: rgba(46, 204, 113, 0.15);
+      --mention-border: #2ecc71;
     }
 
     body { 
       margin: 0; 
       min-height: 100vh; 
-      font-family: Arial, sans-serif; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
       color: var(--text-main); 
       background: 
         radial-gradient(ellipse at 15% 15%, #29245a, transparent 45%), 
@@ -189,6 +192,21 @@
       fill: currentColor;
     }
 
+    .checkbox-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .checkbox-field input {
+      width: auto;
+      cursor: pointer;
+    }
+
     .birthday { 
       display: grid; 
       grid-template-columns: 1fr 1.25fr 1.4fr; 
@@ -205,7 +223,7 @@
       font-size: 15px; 
       font-weight: bold; 
       cursor: pointer; 
-      margin-top: 5px; 
+      margin-top: 15px; 
       transition: background 0.2s;
     } 
  
@@ -216,8 +234,9 @@
       padding: 12px; 
       margin-top: 15px; 
       border-radius: 9px; 
-      background: #292d43; 
-      color: #d9ddff; 
+      background: #3b1d28; 
+      border: 1px solid #e74c3c;
+      color: #f1a9a0; 
       font-size: 13px; 
       line-height: 1.6; 
       overflow-wrap: anywhere; 
@@ -393,11 +412,6 @@
       transition: all 0.15s;
     }
 
-    .channel-item:hover {
-      background: rgba(255,255,255,0.05);
-      color: var(--text-main);
-    }
-
     .channel-item.active {
       background: rgba(88, 101, 242, 0.2);
       color: #ffffff;
@@ -430,6 +444,27 @@
       color: white;
       flex-shrink: 0;
       text-transform: uppercase;
+      position: relative;
+    }
+
+    .avatar.owner-avatar {
+      background: linear-gradient(135deg, #f1c40f, #e67e22);
+      box-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
+    }
+
+    .owner-badge {
+      background: var(--owner-gold);
+      color: #111;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 6px;
+      box-shadow: 0 2px 5px rgba(241, 196, 15, 0.3);
     }
 
     .user-info {
@@ -444,11 +479,27 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
     }
 
     .user-info .status {
       font-size: 11px;
       color: #57f287;
+    }
+
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #e74c3c;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 5px;
+      border-radius: 4px;
+    }
+
+    .logout-btn:hover {
+      background: rgba(231, 76, 60, 0.1);
     }
 
     /* Main Chat View */
@@ -466,7 +517,7 @@
       border-bottom: 1px solid #1f212d;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
       font-weight: bold;
       font-size: 16px;
       background: var(--chat-bg);
@@ -485,7 +536,34 @@
     .message-card {
       display: flex;
       gap: 14px;
+      position: relative;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.15s;
       animation: fadeIn 0.2s ease-out;
+    }
+
+    .message-card:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .message-card.is-mention {
+      background: var(--mention-bg);
+      border-left: 3px solid var(--mention-border);
+    }
+
+    .reply-reference {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .reply-reference span {
+      font-weight: bold;
+      color: var(--text-main);
     }
 
     @keyframes fadeIn {
@@ -508,6 +586,8 @@
       font-weight: bold;
       font-size: 14px;
       color: var(--text-main);
+      display: flex;
+      align-items: center;
     }
 
     .timestamp {
@@ -520,6 +600,49 @@
       color: #dcddde;
       line-height: 1.5;
       word-break: break-word;
+    }
+
+    .message-text .mention-tag {
+      background: rgba(88, 101, 242, 0.3);
+      color: #c9ceff;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .message-actions {
+      display: none;
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      background: #2b2d3d;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .message-card:hover .message-actions {
+      display: flex;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .action-btn.delete-btn:hover {
+      background: #e74c3c;
+      color: white;
     }
 
     .media-attachment {
@@ -537,6 +660,46 @@
       max-height: 300px;
       display: block;
       object-fit: contain;
+    }
+
+    /* Reply Preview Area */
+    .reply-preview-bar {
+      background: #1c1d29;
+      border-top: 1px solid var(--border-color);
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .reply-preview-bar span {
+      color: var(--text-main);
+      font-weight: bold;
+    }
+
+    .cancel-reply-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .cancel-reply-btn:hover {
+      color: white;
+    }
+
+    /* Timeout Alert Banner */
+    .timeout-banner {
+      background: #381a1a;
+      border-top: 1px solid #e74c3c;
+      color: #f5b7b1;
+      padding: 10px 20px;
+      font-size: 13px;
+      text-align: center;
+      font-weight: bold;
     }
 
     /* Bottom Input Container */
@@ -602,15 +765,21 @@
       background: var(--accent-hover);
     }
 
+    .send-btn:disabled, .attach-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     /* Right Sidebar - Online List */
     .members-sidebar {
-      width: 200px;
+      width: 220px;
       background: var(--sidebar-bg);
       border-left: 1px solid #1f212d;
       padding: 18px 14px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      overflow-y: auto;
     }
 
     .members-title {
@@ -624,9 +793,31 @@
     .member-item {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 8px;
       font-size: 13px;
       color: var(--text-muted);
+      padding: 4px;
+      border-radius: 6px;
+    }
+
+    .member-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .member-info-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .member-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
     }
 
     .member-avatar {
@@ -639,6 +830,91 @@
       font-size: 12px;
       font-weight: bold;
       color: white;
+      flex-shrink: 0;
+    }
+
+    .timeout-btn {
+      background: #3a2329;
+      border: 1px solid #721c24;
+      color: #f8d7da;
+      font-size: 10px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .timeout-btn:hover {
+      background: #721c24;
+      color: white;
+    }
+
+    /* Modal for Timeout Options */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .modal-btn {
+      padding: 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: left;
+      transition: background 0.2s;
+    }
+
+    .modal-btn:hover {
+      background: var(--accent);
+    }
+
+    .modal-btn.remove-time {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+
+    .modal-btn.remove-time:hover {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .modal-close {
+      margin-top: 15px;
+      width: 100%;
+      padding: 8px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
     }
 
     /* Responsive Design */
@@ -701,9 +977,8 @@
           <div class="field" id="usernameField"> 
             <label for="username">USERNAME</label> 
             <input id="username" name="username" 
-              type="text" minlength="3" maxlength="24" 
-              pattern="[A-Za-z0-9_]+" 
-              placeholder="Enter your username" 
+              type="text" 
+              placeholder="Enter your username (> 3 chars)" 
               autocomplete="username" required> 
           </div> 
    
@@ -711,8 +986,8 @@
             <label for="password">PASSWORD</label> 
             <div class="password-wrapper">
               <input id="password" name="password" 
-                type="password" minlength="8" maxlength="128" 
-                placeholder="Enter your password" 
+                type="password" 
+                placeholder="At least 8 characters" 
                 autocomplete="current-password" required> 
               <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
                 <svg id="eyeIcon" viewBox="0 0 24 24">
@@ -721,9 +996,13 @@
               </button>
             </div>
           </div> 
+
+          <label class="checkbox-field">
+            <input type="checkbox" id="rememberMe"> Remember Me
+          </label>
    
           <div id="birthdayField" hidden> 
-            <div class="field"> 
+            <div class="field" style="margin-top: 15px;"> 
               <label>DATE OF BIRTH</label> 
    
               <div class="birthday"> 
@@ -782,8 +1061,8 @@
           <summary>Read our Terms of Service</summary> 
           <p><strong>VibeChat Terms of Service</strong></p> 
           <p><strong>1. Age requirement.</strong> You must be older than 13 years old to create or use a VibeChat account.</p> 
-          <p><strong>2. Your account.</strong> Provide a username and password, keep your password private.</p> 
-          <p><strong>3. Respectful behaviour.</strong> Do not harass, threaten, bully, or impersonate other users.</p> 
+          <p><strong>2. Your account.</strong> Provide a valid username and password (>3 chars for username, >=8 chars for password).</p> 
+          <p><strong>3. Respectful behaviour.</strong> Do not harass, threaten, bully, or impersonate other users. The Owner (Toastieofficial) moderates this server.</p> 
         </details> 
    
         <div class="footer"> 
@@ -820,9 +1099,6 @@
       <div class="channel-list">
         <div class="channel-category">Text Channels</div>
         <div class="channel-item active"><span>#</span>general</div>
-        <div class="channel-item"><span>#</span>lounge</div>
-        <div class="channel-item"><span>#</span>memes</div>
-        <div class="channel-item"><span>#</span>gaming</div>
       </div>
 
       <!-- Current Logged In User Profile -->
@@ -832,55 +1108,39 @@
           <div class="name" id="userNameDisplay">Username</div>
           <div class="status">Online</div>
         </div>
+        <button class="logout-btn" id="logoutBtn" title="Log Out">✕</button>
       </div>
     </aside>
 
     <!-- Main Chat Window -->
     <main class="chat-main">
       <header class="chat-header">
-        <span style="color: #6a6d85; font-size:22px;">#</span>
-        <span id="currentChannelName">general</span>
+        <div>
+          <span style="color: #6a6d85; font-size:22px;">#</span>
+          <span id="currentChannelName">general</span>
+        </div>
       </header>
 
       <!-- Message History Container -->
-      <div class="chat-messages" id="chatMessages">
-        <!-- Default Welcome Messages -->
-        <div class="message-card">
-          <div class="avatar" style="background:#ed4245;">T</div>
-          <div class="message-content">
-            <div class="message-header">
-              <span class="author-name">ToastieBot</span>
-              <span class="timestamp">Today at 12:00 PM</span>
-            </div>
-            <div class="message-text">Welcome to VibeChat! Feel free to chat, upload photos, or share videos! 🚀</div>
-          </div>
-        </div>
+      <div class="chat-messages" id="chatMessages"></div>
 
-        <div class="message-card">
-          <div class="avatar" style="background:#fee75c; color:#000;">A</div>
-          <div class="message-content">
-            <div class="message-header">
-              <span class="author-name">Alex</span>
-              <span class="timestamp">Today at 12:02 PM</span>
-            </div>
-            <div class="message-text">Hey everyone! Loving the vibe here! ✨</div>
-          </div>
-        </div>
+      <!-- Active Reply Preview Header -->
+      <div class="reply-preview-bar" id="replyPreviewBar" hidden>
+        <div>Replying to <span id="replyTargetAuthor">User</span></div>
+        <button class="cancel-reply-btn" id="cancelReplyBtn">✕</button>
       </div>
 
-      <!-- Sticky Floating Bottom Input -->
+      <!-- Timeout Warning Banner -->
+      <div class="timeout-banner" id="timeoutBanner" hidden>
+         You are currently timed out by Toastieofficial.
+      </div>
+
+      <!-- Sticky Bottom Input -->
       <div class="chat-input-area">
         <div class="chat-input-box">
-          <!-- Hidden File Input for Gallery Images/Videos -->
           <input type="file" id="mediaUpload" accept="image/*,video/*" hidden>
-          
-          <!-- Attachment Plus Button -->
           <button type="button" class="attach-btn" id="attachBtn" title="Attach Image or Video">+</button>
-          
-          <!-- Message Input -->
           <input type="text" id="messageInput" placeholder="Message #general..." autocomplete="off">
-          
-          <!-- Send Button -->
           <button type="button" class="send-btn" id="sendBtn">Send</button>
         </div>
       </div>
@@ -888,23 +1148,25 @@
 
     <!-- Right Members Sidebar -->
     <aside class="members-sidebar">
-      <div class="members-title">Online Members — 3</div>
-      
-      <div class="member-item">
-        <div class="member-avatar" style="background:#5865f2;" id="memberSelfAvatar">U</div>
-        <span id="memberSelfName" style="color:#fff; font-weight:bold;">You</span>
-      </div>
-
-      <div class="member-item">
-        <div class="member-avatar" style="background:#ed4245;">T</div>
-        <span>ToastieBot</span>
-      </div>
-
-      <div class="member-item">
-        <div class="member-avatar" style="background:#fee75c; color:#000;">A</div>
-        <span>Alex</span>
-      </div>
+      <div class="members-title" id="membersCountTitle">Online Members</div>
+      <div id="membersList"></div>
     </aside>
+  </div>
+
+  <!-- Timeout Options Modal -->
+  <div class="modal-overlay" id="timeoutModal" hidden>
+    <div class="modal">
+      <h3>Timeout User</h3>
+      <p id="timeoutModalUser" style="font-size:13px; color:var(--text-muted); margin-bottom:15px;"></p>
+      <div class="modal-options">
+        <button class="modal-btn" onclick="applyTimeout(30)">30 Seconds</button>
+        <button class="modal-btn" onclick="applyTimeout(3600)">1 Hour</button>
+        <button class="modal-btn" onclick="applyTimeout(36000)">10 Hours</button>
+        <button class="modal-btn" onclick="applyTimeout(86400)">1 Day</button>
+        <button class="modal-btn remove-time" onclick="applyTimeout(0)">Remove Timeout</button>
+      </div>
+      <button class="modal-close" onclick="closeTimeoutModal()">Cancel</button>
+    </div>
   </div>
 
   <!-- =========================================================
@@ -912,7 +1174,48 @@
        ========================================================= -->
   <script> 
     let mode = "login"; 
-    let currentUser = { username: "Guest" };
+    let currentUser = null;
+    let activeReplyTo = null;
+    let selectedTimeoutTarget = null;
+
+    const OWNER_USERNAME = "Toastieofficial";
+
+    // App State Management using LocalStorage
+    let registeredUsers = JSON.parse(localStorage.getItem('vibe_users') || '{}');
+    let chatMessagesData = JSON.parse(localStorage.getItem('vibe_messages') || '[]');
+    let userTimeouts = JSON.parse(localStorage.getItem('vibe_timeouts') || '{}');
+
+    // Default messages if empty
+    if (chatMessagesData.length === 0) {
+      chatMessagesData = [
+        {
+          id: 'msg_1',
+          author: OWNER_USERNAME,
+          text: 'Welcome to VibeChat! Feel free to chat, share photos, or post videos! 🚀',
+          timestamp: 'Today at 12:00 PM',
+          replyTo: null,
+          mediaUrl: null
+        },
+        {
+          id: 'msg_2',
+          author: 'Alex',
+          text: 'Hey everyone! Excited to be here. ✨',
+          timestamp: 'Today at 12:02 PM',
+          replyTo: null,
+          mediaUrl: null
+        }
+      ];
+      saveMessages();
+    }
+
+    // Always register owner by default
+    if (!registeredUsers[OWNER_USERNAME.toLowerCase()]) {
+      registeredUsers[OWNER_USERNAME.toLowerCase()] = {
+        username: OWNER_USERNAME,
+        password: 'password123'
+      };
+      saveUsers();
+    }
 
     // Elements
     const authContainer = document.getElementById("authContainer");
@@ -923,6 +1226,7 @@
     const message = document.getElementById("message"); 
     const usernameInput = document.getElementById("username"); 
     const passwordInput = document.getElementById("password"); 
+    const rememberMeCheckbox = document.getElementById("rememberMe");
     const togglePasswordBtn = document.getElementById("togglePassword");
     const eyeIcon = document.getElementById("eyeIcon");
     const day = document.getElementById("day"); 
@@ -938,10 +1242,16 @@
     const mediaUpload = document.getElementById("mediaUpload");
     const userNameDisplay = document.getElementById("userNameDisplay");
     const userAvatarDisplay = document.getElementById("userAvatarDisplay");
-    const memberSelfName = document.getElementById("memberSelfName");
-    const memberSelfAvatar = document.getElementById("memberSelfAvatar");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const membersList = document.getElementById("membersList");
+    const membersCountTitle = document.getElementById("membersCountTitle");
+    const replyPreviewBar = document.getElementById("replyPreviewBar");
+    const replyTargetAuthor = document.getElementById("replyTargetAuthor");
+    const cancelReplyBtn = document.getElementById("cancelReplyBtn");
+    const timeoutBanner = document.getElementById("timeoutBanner");
+    const timeoutModal = document.getElementById("timeoutModal");
 
-    // Toggle Password Eye Icon
+    // Eye Toggle Paths
     const openEyePath = "M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z";
     const closedEyePath = "M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.17c0-1.66-1.34-3-3-3l-.17.02z";
 
@@ -950,6 +1260,23 @@
       passwordInput.type = isPassword ? "text" : "password";
       eyeIcon.querySelector("path").setAttribute("d", isPassword ? closedEyePath : openEyePath);
     });
+
+    // Check Persistent Session
+    window.addEventListener('load', () => {
+      const savedSession = localStorage.getItem('vibe_session');
+      if (savedSession) {
+        currentUser = JSON.parse(savedSession);
+        enterChatRoomDirectly();
+      }
+    });
+
+    function saveUsers() { localStorage.setItem('vibe_users', JSON.stringify(registeredUsers)); }
+    function saveMessages() { localStorage.setItem('vibe_messages', JSON.stringify(chatMessagesData)); }
+    function saveTimeouts() { localStorage.setItem('vibe_timeouts', JSON.stringify(userTimeouts)); }
+
+    function isOwner(username) {
+      return username && username.toLowerCase() === OWNER_USERNAME.toLowerCase();
+    }
 
     function setMode(nextMode) { 
       mode = nextMode; 
@@ -990,12 +1317,33 @@
       return age > 13; 
     } 
 
-    // Submit Auth Form -> Start Loading Sequence
+    // Form Submission & Validation
     form.addEventListener("submit", function(event) { 
       event.preventDefault(); 
-      if (!form.reportValidity()) return; 
- 
+      
+      const uname = usernameInput.value.trim();
+      const pwd = passwordInput.value;
+
+      // Rule 1: Username strictly MORE than 3 characters
+      if (uname.length <= 3) {
+        showMessage("Username must be strictly MORE than 3 characters long.");
+        return;
+      }
+
+      // Rule 2: Password strictly 8 characters or more
+      if (pwd.length < 8) {
+        showMessage("Password must be strictly 8 characters or more.");
+        return;
+      }
+
+      const unameKey = uname.toLowerCase();
+
       if (mode === "signup") { 
+        if (registeredUsers[unameKey]) {
+          showMessage("Username is already taken. Please choose another.");
+          return;
+        }
+
         const d = Number(day.value); 
         const m = Number(month.value); 
         const y = Number(year.value); 
@@ -1008,9 +1356,35 @@
           showMessage("You must agree to the Terms of Service."); 
           return; 
         } 
+
+        // Register user
+        registeredUsers[unameKey] = {
+          username: uname,
+          password: pwd
+        };
+        saveUsers();
+      } else {
+        // Log in verification
+        if (!registeredUsers[unameKey]) {
+          showMessage("User not found. Please sign up first.");
+          return;
+        }
+        if (registeredUsers[unameKey].password !== pwd) {
+          showMessage("Incorrect password. Please try again.");
+          return;
+        }
       }
 
-      currentUser.username = usernameInput.value;
+      // Preserve actual casing for Owner
+      const finalUsername = isOwner(uname) ? OWNER_USERNAME : (registeredUsers[unameKey]?.username || uname);
+      currentUser = { username: finalUsername };
+
+      if (rememberMeCheckbox.checked) {
+        localStorage.setItem('vibe_session', JSON.stringify(currentUser));
+      } else {
+        localStorage.removeItem('vibe_session');
+      }
+
       startLoadingSequence();
     });
 
@@ -1028,7 +1402,7 @@
       const step = (intervalTime / totalDuration) * 100;
 
       const statuses = [
-        "Connecting to servers...",
+        "Connecting to secure servers...",
         "Loading channels & messages...",
         "Syncing ToastieOfficial preferences...",
         "Preparing your workspace...",
@@ -1040,38 +1414,146 @@
         if (progress > 100) progress = 100;
         fill.style.width = progress + "%";
 
-        // Update status text based on progress
         const statusIdx = Math.min(Math.floor((progress / 100) * statuses.length), statuses.length - 1);
         statusText.textContent = statuses[statusIdx];
 
         if (progress >= 100) {
           clearInterval(progressInterval);
-          setTimeout(enterChatRoom, 500);
+          setTimeout(enterChatRoom, 400);
         }
       }, intervalTime);
     }
 
-    // Transition to Main Chat Room
+    function enterChatRoomDirectly() {
+      authContainer.hidden = true;
+      loadingScreen.hidden = true;
+      enterChatRoom();
+    }
+
+    // Transition into Chat UI
     function enterChatRoom() {
       loadingScreen.hidden = true;
       chatApp.hidden = false;
 
-      // Update User Info Displays
-      const firstInitial = currentUser.username.charAt(0).toUpperCase();
-      userNameDisplay.textContent = currentUser.username;
-      userAvatarDisplay.textContent = firstInitial;
-      memberSelfName.textContent = currentUser.username;
-      memberSelfAvatar.textContent = firstInitial;
+      // Set user UI info
+      const isUserOwner = isOwner(currentUser.username);
+      userNameDisplay.innerHTML = `${escapeHTML(currentUser.username)}${isUserOwner ? '<span class="owner-badge">OWNER</span>' : ''}`;
+      
+      userAvatarDisplay.textContent = currentUser.username.charAt(0).toUpperCase();
+      if (isUserOwner) {
+        userAvatarDisplay.classList.add("owner-avatar");
+      } else {
+        userAvatarDisplay.classList.remove("owner-avatar");
+      }
 
-      messageInput.focus();
+      renderMessages();
+      renderMembersList();
+      checkTimeoutStatus();
+
+      // Periodically check timeouts
+      setInterval(checkTimeoutStatus, 3000);
     }
 
-    // Attachment Button Click -> Trigger Hidden File Selector
-    attachBtn.addEventListener("click", () => {
-      mediaUpload.click();
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem('vibe_session');
+      location.reload();
     });
 
-    // Handle Image/Video Upload from Local Gallery
+    // Handle Timeouts
+    function checkTimeoutStatus() {
+      if (!currentUser) return;
+      const userKey = currentUser.username.toLowerCase();
+      const timeoutUntil = userTimeouts[userKey];
+
+      if (timeoutUntil && Date.now() < timeoutUntil) {
+        // Currently timed out
+        timeoutBanner.hidden = false;
+        messageInput.disabled = true;
+        sendBtn.disabled = true;
+        attachBtn.disabled = true;
+        messageInput.placeholder = "You are currently timed out.";
+      } else {
+        // Active
+        if (userTimeouts[userKey]) {
+          delete userTimeouts[userKey];
+          saveTimeouts();
+        }
+        timeoutBanner.hidden = true;
+        messageInput.disabled = false;
+        sendBtn.disabled = false;
+        attachBtn.disabled = false;
+        messageInput.placeholder = "Message #general...";
+      }
+    }
+
+    // Open Timeout Modal for Owner
+    window.openTimeoutModal = function(username) {
+      if (!isOwner(currentUser.username)) return;
+      if (isOwner(username)) return; // Cannot timeout the Owner
+
+      selectedTimeoutTarget = username;
+      document.getElementById('timeoutModalUser').textContent = `Manage timeout for: ${username}`;
+      timeoutModal.hidden = false;
+    };
+
+    window.closeTimeoutModal = function() {
+      timeoutModal.hidden = true;
+      selectedTimeoutTarget = null;
+    };
+
+    window.applyTimeout = function(seconds) {
+      if (!selectedTimeoutTarget) return;
+      const targetKey = selectedTimeoutTarget.toLowerCase();
+
+      if (seconds === 0) {
+        delete userTimeouts[targetKey];
+      } else {
+        userTimeouts[targetKey] = Date.now() + (seconds * 1000);
+      }
+
+      saveTimeouts();
+      closeTimeoutModal();
+      renderMembersList();
+      checkTimeoutStatus();
+    };
+
+    // Render Members Sidebar
+    function renderMembersList() {
+      membersList.innerHTML = "";
+      const allUsers = Object.values(registeredUsers);
+      membersCountTitle.textContent = `Members — ${allUsers.length}`;
+
+      allUsers.forEach(usr => {
+        const item = document.createElement("div");
+        item.className = "member-item";
+        
+        const isUserOwner = isOwner(usr.username);
+        const targetKey = usr.username.toLowerCase();
+        const isTimedOut = userTimeouts[targetKey] && Date.now() < userTimeouts[targetKey];
+
+        let timeoutBtnHTML = "";
+        if (isOwner(currentUser.username) && !isUserOwner) {
+          timeoutBtnHTML = `<button class="timeout-btn" onclick="openTimeoutModal('${escapeHTML(usr.username)}')">${isTimedOut ? 'Timed Out' : 'Timeout'}</button>`;
+        }
+
+        item.innerHTML = `
+          <div class="member-info-wrapper">
+            <div class="member-avatar ${isUserOwner ? 'owner-avatar' : ''}">${usr.username.charAt(0).toUpperCase()}</div>
+            <div class="member-name">
+              ${escapeHTML(usr.username)}
+              ${isUserOwner ? '<span class="owner-badge">OWNER</span>' : ''}
+            </div>
+          </div>
+          ${timeoutBtnHTML}
+        `;
+
+        membersList.appendChild(item);
+      });
+    }
+
+    // Attachment & Message Sending
+    attachBtn.addEventListener("click", () => mediaUpload.click());
+
     mediaUpload.addEventListener("change", function() {
       const file = this.files[0];
       if (!file) return;
@@ -1079,29 +1561,42 @@
       const fileURL = URL.createObjectURL(file);
       const isVideo = file.type.startsWith("video/");
 
-      addMessageToChat({
-        author: currentUser.username,
-        avatar: currentUser.username.charAt(0).toUpperCase(),
-        text: file.name,
-        mediaUrl: fileURL,
-        isVideo: isVideo
-      });
-
-      this.value = ""; // Reset
+      postMessage(file.name, fileURL, isVideo);
+      this.value = "";
     });
 
-    // Send Message Event
     function sendMessage() {
       const text = messageInput.value.trim();
       if (!text) return;
 
-      addMessageToChat({
-        author: currentUser.username,
-        avatar: currentUser.username.charAt(0).toUpperCase(),
-        text: text
-      });
-
+      postMessage(text, null, false);
       messageInput.value = "";
+      cancelReply();
+    }
+
+    function postMessage(text, mediaUrl, isVideo) {
+      const userKey = currentUser.username.toLowerCase();
+      if (userTimeouts[userKey] && Date.now() < userTimeouts[userKey]) {
+        alert("You are timed out and cannot send messages.");
+        return;
+      }
+
+      const now = new Date();
+      const timeStr = `Today at ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')} ${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+
+      const newMsg = {
+        id: 'msg_' + Date.now(),
+        author: currentUser.username,
+        text: text,
+        timestamp: timeStr,
+        replyTo: activeReplyTo,
+        mediaUrl: mediaUrl,
+        isVideo: isVideo
+      };
+
+      chatMessagesData.push(newMsg);
+      saveMessages();
+      renderMessages();
     }
 
     sendBtn.addEventListener("click", sendMessage);
@@ -1109,40 +1604,104 @@
       if (e.key === "Enter") sendMessage();
     });
 
-    // Append Message Card to Live Feed
-    function addMessageToChat(data) {
-      const now = new Date();
-      const timeStr = `Today at ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')} ${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+    // Message Actions (Reply & Delete)
+    window.initiateReply = function(msgId) {
+      const targetMsg = chatMessagesData.find(m => m.id === msgId);
+      if (!targetMsg) return;
 
-      const card = document.createElement("div");
-      card.className = "message-card";
+      activeReplyTo = {
+        id: targetMsg.id,
+        author: targetMsg.author,
+        text: targetMsg.text
+      };
 
-      let mediaHTML = "";
-      if (data.mediaUrl) {
-        if (data.isVideo) {
-          mediaHTML = `<div class="media-attachment"><video src="${data.mediaUrl}" controls></video></div>`;
-        } else {
-          mediaHTML = `<div class="media-attachment"><img src="${data.mediaUrl}" alt="Attachment"></div>`;
-        }
+      replyTargetAuthor.textContent = targetMsg.author;
+      replyPreviewBar.hidden = false;
+      messageInput.focus();
+    };
+
+    function cancelReply() {
+      activeReplyTo = null;
+      replyPreviewBar.hidden = true;
+    }
+    cancelReplyBtn.addEventListener("click", cancelReply);
+
+    window.deleteMessage = function(msgId) {
+      const msg = chatMessagesData.find(m => m.id === msgId);
+      if (!msg) return;
+
+      // Allow deletion if user created the message OR if current user is Toastieofficial (Owner)
+      if (msg.author === currentUser.username || isOwner(currentUser.username)) {
+        chatMessagesData = chatMessagesData.filter(m => m.id !== msgId);
+        saveMessages();
+        renderMessages();
       }
+    };
 
-      card.innerHTML = `
-        <div class="avatar">${data.avatar}</div>
-        <div class="message-content">
-          <div class="message-header">
-            <span class="author-name">${data.author}</span>
-            <span class="timestamp">${timeStr}</span>
+    // Render All Messages
+    function renderMessages() {
+      chatMessages.innerHTML = "";
+
+      chatMessagesData.forEach(msg => {
+        const card = document.createElement("div");
+        const isMsgOwner = isOwner(msg.author);
+        const isMentioned = msg.text.includes(`@${currentUser.username}`);
+        
+        card.className = `message-card ${isMentioned ? 'is-mention' : ''}`;
+
+        // Highlight mentions in text
+        let formattedText = escapeHTML(msg.text);
+        const mentionRegex = new RegExp(`@(${currentUser.username}|[A-Za-z0-9_]+)`, 'g');
+        formattedText = formattedText.replace(mentionRegex, `<span class="mention-tag">@$1</span>`);
+
+        let replyHTML = "";
+        if (msg.replyTo) {
+          replyHTML = `
+            <div class="reply-reference">
+              ↳ Replying to <span>@${escapeHTML(msg.replyTo.author)}</span>: "${escapeHTML(msg.replyTo.text.substring(0, 30))}${msg.replyTo.text.length > 30 ? '...' : ''}"
+            </div>
+          `;
+        }
+
+        let mediaHTML = "";
+        if (msg.mediaUrl) {
+          if (msg.isVideo) {
+            mediaHTML = `<div class="media-attachment"><video src="${msg.mediaUrl}" controls></video></div>`;
+          } else {
+            mediaHTML = `<div class="media-attachment"><img src="${msg.mediaUrl}" alt="Attachment"></div>`;
+          }
+        }
+
+        const canDelete = (msg.author === currentUser.username) || isOwner(currentUser.username);
+
+        card.innerHTML = `
+          <div class="avatar ${isMsgOwner ? 'owner-avatar' : ''}">${msg.author.charAt(0).toUpperCase()}</div>
+          <div class="message-content">
+            ${replyHTML}
+            <div class="message-header">
+              <span class="author-name">
+                ${escapeHTML(msg.author)}
+                ${isMsgOwner ? '<span class="owner-badge">OWNER</span>' : ''}
+              </span>
+              <span class="timestamp">${msg.timestamp}</span>
+            </div>
+            <div class="message-text">${formattedText}</div>
+            ${mediaHTML}
           </div>
-          <div class="message-text">${escapeHTML(data.text)}</div>
-          ${mediaHTML}
-        </div>
-      `;
+          <div class="message-actions">
+            <button class="action-btn" onclick="initiateReply('${msg.id}')">Reply</button>
+            ${canDelete ? `<button class="action-btn delete-btn" onclick="deleteMessage('${msg.id}')">Delete</button>` : ''}
+          </div>
+        `;
 
-      chatMessages.appendChild(card);
+        chatMessages.appendChild(card);
+      });
+
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     function escapeHTML(str) {
+      if (!str) return "";
       return str.replace(/[&<>'"]/g, 
         tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
       );
